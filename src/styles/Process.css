@@ -1,0 +1,137 @@
+.process-section {
+    /* background-color removed */
+    /* padding-top removed */
+    padding-bottom: 4rem;
+}
+
+.process-heading {
+    font-size: 36px;
+    /* Global H1 hierarchy */
+    font-weight: 600;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    letter-spacing: -0.02em;
+    color: var(--text-heading);
+    /* Removed max-width to fill container */
+}
+
+.process-description {
+    font-size: var(--p-);
+    /* Large responsive text */
+    line-height: 1.2;
+    color: var(--text-heading);
+    /* Prominent color */
+    margin-bottom: 48px;
+    letter-spacing: -0.02em;
+    /* Removed max-width to fill container */
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 24px;
+    margin-bottom: 48px;
+}
+
+.process-card {
+    background-color: #FBFBFB;
+    /* Light grey/white background */
+    padding: 32px 28px;
+    border-radius: 24px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 480px;
+    /* Taller to accommodate visuals */
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.process-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+}
+
+/* Top Row: 2 cards, each spans 3 columns */
+.process-card:nth-child(1),
+.process-card:nth-child(2) {
+    grid-column: span 3;
+}
+
+/* Bottom Row: 3 cards, each spans 2 columns */
+.process-card:nth-child(3),
+.process-card:nth-child(4),
+.process-card:nth-child(5) {
+    grid-column: span 2;
+}
+
+.card-heading {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    color: var(--text-heading);
+    line-height: 1.3;
+}
+
+.card-text {
+    color: var(--text-secondary);
+    font-size: 15px;
+    line-height: 1.6;
+    margin-bottom: 24px;
+}
+
+.card-visual-container {
+    flex-grow: 1;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 200px;
+    overflow: hidden;
+    margin-top: auto;
+}
+
+.visual-placeholder {
+    color: #cbd5e1;
+    font-weight: 500;
+    font-size: 0.9rem;
+    border: 2px dashed #e2e8f0;
+    padding: 20px;
+    border-radius: 12px;
+}
+
+/* Responsive */
+@media screen and (max-width: 1024px) {
+    .process-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    /* On medium screens, maybe 2x2 grid then 1? or just all equal? */
+    .process-card:nth-child(1),
+    .process-card:nth-child(2),
+    .process-card:nth-child(3),
+    .process-card:nth-child(4),
+    .process-card:nth-child(5) {
+        grid-column: span 1;
+    }
+
+    /* Special case for 5th item to center/span on tablet if 2 cols? 
+       Let's keep it simple for now: 2 columns, last one might be empty or span 2 */
+    .process-card:nth-child(5) {
+        grid-column: span 2;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .process-card:nth-child(n) {
+        grid-column: span 1;
+    }
+
+    .process-card {
+        min-height: auto;
+    }
+}
