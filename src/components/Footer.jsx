@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import '../styles/Footer.css';
 import FooterLogo from '../assets/Footer Logo_2.jpg';
+import ContactIcon from '../assets/Contact Icon.png';
+import MailIcon from '../assets/Mail.png';
+import LinkedinIcon from '../assets/mingcute_linkedin-line.png';
 
 const Footer = () => {
     const [status, setStatus] = useState(''); // '', 'submitting', 'success', 'error'
@@ -43,6 +46,26 @@ const Footer = () => {
             <div className="container footer-container">
                 <div className="footer-left">
                     <img src={FooterLogo} alt="Logo" className="footer-logo" />
+                    <div className="footer-contact">
+                        <div className="contact-item">
+                            <div className="contact-icon">
+                                <img src={ContactIcon} alt="Phone" />
+                            </div>
+                            <span className="contact-text">+919392950368</span>
+                        </div>
+                        <div className="contact-item">
+                            <div className="contact-icon">
+                                <img src={MailIcon} alt="Email" />
+                            </div>
+                            <a href="mailto:jaitej790@gmail.com" className="contact-text">jaitej790@gmail.com</a>
+                        </div>
+                        <div className="contact-item">
+                            <div className="contact-icon">
+                                <img src={LinkedinIcon} alt="LinkedIn" />
+                            </div>
+                            <a href="https://www.linkedin.com/in/jai-tej-17b717262/" target="_blank" rel="noopener noreferrer" className="contact-text">Linked in</a>
+                        </div>
+                    </div>
                 </div>
 
                 <div className="footer-right">
@@ -66,6 +89,8 @@ const Footer = () => {
                     </form>
                 </div>
             </div>
+
+
 
             {status === 'success' && (
                 <div className="snackbar">
