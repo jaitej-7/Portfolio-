@@ -89,7 +89,7 @@ const SceneContent = ({ activeSection, isMobile }) => {
                     // Moved up to avoid overlapping the center text
                     targetPos = { x: 0, y: 0.7, z: 0 };
                     targetRot = { x: 0.2, y: -0.3, z: 0 };
-                    targetScale = 2.1; // Increased significantly per user request
+                    targetScale = 1.5; // Increased significantly per user request
             }
         }
 
