@@ -1,0 +1,148 @@
+﻿[36mvite v7.3.0 [32mbuilding client environment for production...[36m[39m
+transforming...
+[32mΓ£ô[39m 15 modules transformed.
+node.exe : 
+[31mΓ£ù[39m Build 
+failed in 727ms
+At C:\Program Files\n
+odejs\npx.ps1:29 
+char:3
++   & $NODE_EXE 
+$NPX_CLI_JS $args
++   ~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~
+    + CategoryInfo   
+           : NotSpe  
+  cified: ([31mΓ£   
+ ù[39m Build fai    
+led in 727ms:Str    
+ing) [], RemoteE    
+xception
+    + FullyQualified 
+   ErrorId : Native  
+  CommandError
+ 
+[31merror during 
+build:
+[31m[vite:esbuild] 
+Transform failed 
+with 3 errors:
+F:/portfolio/src/comp
+onents/Hero.jsx:11:7:
+ ERROR: The symbol 
+"figmaIcon" has 
+already been declared
+F:/portfolio/src/comp
+onents/Hero.jsx:12:7:
+ ERROR: The symbol 
+"psIcon" has already 
+been declared
+F:/portfolio/src/comp
+onents/Hero.jsx:13:7:
+ ERROR: The symbol 
+"xdIcon" has already 
+been declared[31m
+file: [36mF:/portfol
+io/src/components/Her
+o.jsx:11:7[31m
+[33m
+[33mThe symbol 
+"figmaIcon" has 
+already been 
+declared[33m
+9  |  import xdIcon 
+from 
+'../assets/Adobe 
+XD.png';
+10 |  // Icons for 
+folders
+11 |  import 
+figmaIcon from '../as
+sets/Figma.png';
+   |         ^
+12 |  import psIcon 
+from '../assets/Photo
+shop.png';
+13 |  import xdIcon 
+from 
+'../assets/Adobe 
+XD.png';
+
+[33mThe symbol 
+"psIcon" has already 
+been declared[33m
+10 |  // Icons for 
+folders
+11 |  import 
+figmaIcon from '../as
+sets/Figma.png';
+12 |  import psIcon 
+from '../assets/Photo
+shop.png';
+   |         ^
+13 |  import xdIcon 
+from 
+'../assets/Adobe 
+XD.png';
+14 |  import 
+framerIcon from '../a
+ssets/Framer.png';
+
+[33mThe symbol 
+"xdIcon" has already 
+been declared[33m
+11 |  import 
+figmaIcon from '../as
+sets/Figma.png';
+12 |  import psIcon 
+from '../assets/Photo
+shop.png';
+13 |  import xdIcon 
+from 
+'../assets/Adobe 
+XD.png';
+   |         ^
+14 |  import 
+framerIcon from '../a
+ssets/Framer.png';
+15 |  
+[31m
+    at 
+failureErrorWithLog (
+F:\portfolio\node_mod
+ules\esbuild\lib\main
+.js:1467:15)
+    at F:\portfolio\n
+ode_modules\esbuild\l
+ib\main.js:736:50
+    at responseCallba
+cks.<computed> (F:\po
+rtfolio\node_modules\
+esbuild\lib\main.js:6
+03:9)
+    at 
+handleIncomingPacket 
+(F:\portfolio\node_mo
+dules\esbuild\lib\mai
+n.js:658:12)
+    at Socket.readFro
+mStdout (F:\portfolio
+\node_modules\esbuild
+\lib\main.js:581:7)
+    at Socket.emit 
+(node:events:518:28)
+    at addChunk (node
+:internal/streams/rea
+dable:561:12)
+    at readableAddChu
+nkPushByteMode (node:
+internal/streams/read
+able:512:3)
+    at Readable.push 
+(node:internal/stream
+s/readable:392:5)
+    at 
+Pipe.onStreamRead (no
+de:internal/stream_ba
+se_commons:189:23)[3
+9m

@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+    --font-sans: 'Inter', 'sans-serif';
+    --font-display: 'Outfit', 'sans-serif';
+
+    --color-primary-500: #0077b6;
+    --color-primary-600: #023e8a;
+
+    --image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+}
+
+@layer base {
+    body {
+        @apply bg-white text-zinc-900 font-sans antialiased;
+        overflow-x: hidden;
+    }
+}
+
+@layer utilities {
+    .glass {
+        @apply bg-white/70 backdrop-blur-lg border border-white/20 shadow-lg;
+    }
+
+    .filter-primary {
+        filter: brightness(0) saturate(100%) invert(36%) sepia(34%) saturate(3477%) hue-rotate(185deg) brightness(96%) contrast(101%);
+    }
+}

@@ -1,0 +1,341 @@
+/* Experience.css */
+
+/* ... (rest of file) ... */
+
+@media (max-width: 768px) {
+    /* ... (other rules) ... */
+
+    .carousel-container {
+        flex-direction: column;
+        gap: 1rem;
+        height: auto;
+        padding-bottom: 2rem;
+        /* Reduced padding */
+    }
+
+    /* Stack View Restored */
+    .cards-stack {
+        width: 80%;
+        height: 360px;
+        margin-bottom: 1rem;
+        position: relative;
+    }
+
+    /* Buttons Centered Vertically */
+    .nav-btn {
+        position: absolute;
+        top: 50%;
+        bottom: auto;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        z-index: 50;
+        /* Ensure on top */
+    }
+
+    .left-btn {
+        left: 0;
+        right: auto;
+        margin-right: 0;
+    }
+
+    .right-btn {
+        right: 0;
+        left: auto;
+        margin-left: 0;
+    }
+}
+
+.experience-section {
+    width: 100%;
+    max-width: 1400px;
+    /* Constrain width for readability, increased for wider cards */
+    margin: 0 auto;
+    text-align: center;
+    padding-top: 4rem;
+    font-family: 'Inter', sans-serif;
+    color: #1f2937;
+}
+
+.exp-title {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.25rem;
+    /* ~36px */
+    font-weight: 600;
+    margin-bottom: 1rem;
+    color: #111;
+    line-height: 1.2;
+}
+
+.exp-subtitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+    max-width: 700px;
+    margin: 0 auto 4rem auto;
+}
+
+/* Carousel/Stack Wrapper */
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    width: 100% !important;
+    /* Increased width for wider cards */
+    margin: 0 auto;
+
+    /* Ensure arrows aren't clipped */
+}
+
+/* Stacked Cards Container */
+.cards-stack {
+    position: relative;
+    width: 60%;
+    height: 400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    /* Centering strategy combined with transforms in subclasses */
+    width: 100%;
+    height: auto;
+    min-height: 200px;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+    padding: 1.5rem;
+    text-align: left;
+    border: 1px solid #f3f4f6;
+    display: flex;
+    flex-direction: column;
+
+    /* Smooth movement between positions */
+    transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.6s ease, z-index 0s linear 0.3s;
+}
+
+/* --- Dynamic Stack Positions --- */
+
+/* 1. Active / Front */
+.card-front {
+    transform: translateX(-50%) rotate(0deg) scale(1);
+    opacity: 1;
+    z-index: 30;
+    background-color: #fff;
+}
+
+/* 2. Middle (Behind Left) */
+.card-middle {
+    transform: translateX(-55%) rotate(-4deg) translateY(-10px) scale(0.98);
+    opacity: 0.95;
+    z-index: 20;
+    background-color: #f9fafb;
+}
+
+/* 3. Back (Behind Right) */
+.card-back {
+    transform: translateX(-45%) rotate(4deg) translateY(-5px) scale(0.96);
+    opacity: 0.9;
+    z-index: 10;
+    background-color: #f3f4f6;
+}
+
+/* Hidden (Moving out/cycling) */
+/* Hidden (Moving out/cycling) */
+.card-hidden {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.9) translateY(20px);
+    z-index: 0;
+    pointer-events: none;
+}
+
+/* Navigation Buttons */
+.nav-btn {
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: white;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border: 1px solid #1f2937;
+    transition: all 0.2s ease;
+    z-index: 100;
+    /* Above cards */
+    color: #1f2937;
+    top: 40%;
+    transform: translateY(-50%);
+}
+
+.left-btn {
+    left: 22%;
+}
+
+.right-btn {
+    right: 22%;
+}
+
+.nav-btn:hover {
+    background: #f9fafb;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+/* Card Content Standard Layout */
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-bottom: 8px;
+}
+
+.company-logo {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.company-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: #111;
+}
+
+.role-description {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #6b7280;
+    /* Pushes footer down */
+    margin-bottom: 2rem;
+    text-align: left;
+}
+
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    padding-top: 1rem;
+    border-top: 1px solid #e5e7eb;
+}
+
+.role-tag {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #374151;
+    background: #f3f4f6;
+    padding: 0.25rem 0.75rem;
+    border-radius: 999px;
+}
+
+.date-tag {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: #9ca3af;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+@media (max-width: 768px) {
+    .experience-section {
+        padding-top: 24rem;
+        /* Clear fixed header */
+        width: 100%;
+        overflow: hidden;
+        padding-bottom: 8rem;
+        /* Clear bottom nav */
+    }
+
+    .exp-title {
+        font-size: 1.5rem;
+    }
+
+    .exp-subtitle {
+        font-size: 0.9rem;
+        padding: 0 1rem;
+        margin-bottom: 4px;
+        /* Increased space before cards */
+    }
+
+    .carousel-container {
+        flex-direction: column;
+        gap: 1rem;
+        height: auto;
+        padding-bottom: 60px;
+        /* Make room for buttons */
+    }
+
+    /* Responsive Text Sizes */
+    .company-title {
+        font-size: 1.1rem;
+    }
+
+    .role-description {
+        font-size: 0.85rem;
+        line-height: 1.5;
+        max-h: 200px;
+        overflow-y: auto;
+    }
+
+    .role-tag {
+        font-size: 0.75rem;
+    }
+
+    .date-tag {
+        font-size: 0.65rem;
+    }
+
+    /* Stack View Restored */
+    .cards-stack {
+        width: 100%;
+        /* Matches desktop relative width logic */
+        height: 450px;
+        margin-bottom: 3rem;
+        /* Space for buttons */
+        position: relative;
+    }
+
+    .card {
+        /* Revert to desktop stack behavior (absolute, centered) */
+        width: 80%;
+        height: auto;
+        padding: 1.5rem;
+        /* Ensure specific mobile overrides don't break stack */
+    }
+
+    /* Keep generic stack classes from desktop (.card-front, .card-middle, etc.) active */
+
+    /* Buttons Below Cards */
+    .nav-btn {
+        position: absolute;
+        top: 30%;
+        /* Center vertically */
+        bottom: auto;
+        transform: translateY(-50%);
+        width: 42px;
+        height: 42px;
+        z-index: 60;
+        /* Increased to sit above global 3D scene (z-50) */
+    }
+
+    .left-btn {
+        left: 20;
+        /* Pin to left */
+        right: auto;
+    }
+
+    .right-btn {
+        right: 18px;
+        /* Pin to right */
+        left: auto;
+    }
+}

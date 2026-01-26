@@ -1,86 +1,120 @@
-import React from 'react';
-import '../styles/Experience.css';
-import GAIcon from '../assets/GA Digital.png';
-import TechpixeIcon from '../assets/Techpixe.png';
-import EdyIcon from '../assets/EDYGrad.png';
-import TGAFIcon from '../assets/TGAF.png';
+import React, { useState } from 'react';
+import './Experience.css';
+import GADigitalLogo from '../assets/GA Digital.png';
+import TechpixeLogo from '../assets/Techpixe.png';
+import TGAFLogo from '../assets/TGAF.png';
+import EdyGradLogo from '../assets/EDYGrad.png';
 
-const ExperienceCard = ({ company, location, role, date, description, logoIcon, logoColor }) => {
-    return (
-        <div className="experience-card">
-            <div className="exp-card-header">
-                <div className="exp-logo" style={{ backgroundColor: logoColor || '#f4f4f5' }}>
-                    <img src={logoIcon} alt={company} style={{ width: '28px', height: 'auto' }} />
-                </div>
-                <h3 className="exp-company">
-                    {company}, <span className="exp-location">{location}</span>
-                </h3>
-            </div>
 
-            <p className="exp-description">{description}</p>
-
-            <div className="exp-footer">
-                <span className="exp-role">{role}</span>
-                <span className="exp-date">{date}</span>
-            </div>
-        </div>
-    );
-};
+const experienceData = [
+    {
+        id: 1,
+        company: "G A Digital Solutions",
+        logo: GADigitalLogo,
+        role: "UI/UX Designer",
+        date: "Feb 2025 - Present",
+        desc: "Led end-to-end UI/UX for AI-driven SaaS platforms like GA Grid and HireSync, focusing on complex workflow optimization. Built the Quantum Design System (QDS), reducing developer handoff time by 30%, and designed GradArena.ai using AI-assisted workflows."
+    },
+    {
+        id: 2,
+        company: "Techpixe",
+        logo: TechpixeLogo,
+        role: "UX/UI Designer Executive",
+        date: "Jul 2024 - Feb 2025",
+        desc: "Designed responsive dashboards and enterprise platforms for Smart AI HR and Asram. Conducted user research and usability testing to drive data-backed design decisions while ensuring pixel-perfect implementation."
+    },
+    {
+        id: 3,
+        company: "EdyGrade",
+        logo: EdyGradLogo,
+        role: "UIUX Designer Intern",
+        date: "Apr 2024 - Jul 2024",
+        desc: "Refined Android app UX through research-driven UI updates, boosting usability ratings by 25%. Created high-fidelity wireframes and interactive prototypes in Figma to enhance user engagement."
+    },
+    {
+        id: 4,
+        company: "Talentship Global Advisory Forum",
+        logo: TGAFLogo,
+        role: "UI/UX Designer",
+        date: "Oct 2023 - Dec 2023",
+        desc: "Designed the Krishitantrick platform and company website, improving accessibility and usability. Delivered client-centric design solutions and prototypes in a consulting environment."
+    }
+];
 
 const Experience = () => {
-    const experiences = [
-        {
-            company: "G A Digital Solutions",
-            location: "Hyderabad",
-            logoIcon: GAIcon,
-            logoColor: "#FFFFFF",
-            role: "UI/UX Designer",
-            date: "FEB 2025 - Present",
-            description: "At GA Digital Solutions, I'm leading the UI/UX design efforts for two enterprise-level platforms: Hiresync and Digital Operations Management System (DOMS). My role revolves around transforming complex systems into seamless user experiences that drive clarity, efficiency, and adoption across corporate environments."
-        },
-        {
-            company: "Techpixe",
-            location: "Hyderabad",
-            logoIcon: TechpixeIcon,
-            logoColor: "#FFFFFF",
-            role: "UI/UX Designer Executive",
-            date: "JULY 2024 - FEB 2025",
-            description: "As a UI/UX Designer, I lead high-impact projects using design thinking to create intuitive dashboards and AI tools. My work involves user research, wireframes, and ensuring brand alignment. Achievements include reducing timelines by 15% and enhancing client engagement."
-        },
-        {
-            company: "Edygrade",
-            location: "Visakhapatnam",
-            logoIcon: EdyIcon,
-            logoColor: "#FFFFFF",
-            role: "UI/UX Designer Intern",
-            date: "APR 2024 - JULY 2024",
-            description: "During my internship as a UI/UX Designer, I improved EdyGrade's Android app usability. By applying design strategies, I developed prototypes that enhanced accessibility and user satisfaction, leading to a 25% increase in usability ratings."
-        },
-        {
-            company: "TGAF",
-            location: "Noida",
-            logoIcon: TGAFIcon,
-            logoColor: "#FFFFFF",
-            role: "UI/UX Designer Intern",
-            date: "OCT 2023 - DEC 2023",
-            description: "At Talentship, I worked as a UI/UX Designer, creating user-friendly interfaces for the Krishitantrick platform and the landing page. My designs improved usability, accessibility, and client retention."
-        }
-    ];
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleNext = () => {
+        setActiveIndex((prev) => (prev + 1) % experienceData.length);
+    };
+
+    const handlePrev = () => {
+        setActiveIndex((prev) => (prev - 1 + experienceData.length) % experienceData.length);
+    };
 
     return (
-        <section id="experience" className="section experience-section">
-            <div className="container">
-                <h2 className="section-title">Work Experience</h2>
-                <p className="section-subtitle">
-                    From understanding users to prototyping solutions, each step adds clarity and purpose.
-                    This process helps me design products that feel natural and work the way people expect.
-                </p>
+        <section className="experience-section">
+            <div className="flex flex-col items-center mb-1">
+                <h2 className="exp-title mb-2">Work Experience</h2>
+            </div>
 
-                <div className="experience-list">
-                    {experiences.map((exp, index) => (
-                        <ExperienceCard key={index} {...exp} />
-                    ))}
+            <p className="exp-subtitle">
+                From understanding users to prototyping solutions, each step adds clarity and purpose.
+                This process helps me design products that feel natural and work the way people expect.
+            </p>
+
+            <div className="carousel-container">
+                <button onClick={handlePrev} className="nav-btn left-btn" aria-label="Previous">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M15 18l-6-6 6-6" />
+                    </svg>
+                </button>
+
+                <div className="cards-stack">
+                    {experienceData.map((item, index) => {
+                        // Calculate relative position in the stack (0 = Front, 1 = Middle, 2 = Back/Hidden)
+                        const length = experienceData.length;
+                        const relativeIndex = (index - activeIndex + length) % length;
+
+                        // Map relative index to specific positioning classes
+                        let positionClass = '';
+                        if (relativeIndex === 0) positionClass = 'card-front';
+                        else if (relativeIndex === 1) positionClass = 'card-middle';
+                        else if (relativeIndex === 2) positionClass = 'card-back';
+                        else positionClass = 'card-hidden';
+
+                        return (
+                            <div
+                                key={item.id}
+                                className={`card ${positionClass}`}
+                            >
+                                <div className="card-header">
+                                    {item.logo ? (
+                                        <img src={item.logo} alt={item.company} className="company-logo" />
+                                    ) : (
+                                        <div className="company-logo bg-gray-200 rounded-full flex items-center justify-center text-xs font-bold text-gray-400" style={{ width: '48px', height: '48px' }}>?</div>
+                                    )}
+                                    <h3 className="company-title">{item.company}</h3>
+                                </div>
+                                <div className="role-description text-sm max-h-[220px] pr-0 md:pr-2">
+                                    <p className="leading-relaxed text-[#393D40] text-left">
+                                        {item.desc}
+                                    </p>
+                                </div>
+                                <div className="card-footer mt-auto pt-1 md:pt-4 border-t border-gray-100">
+                                    <span className="role-tag">{item.role}</span>
+                                    <span className="date-tag">{item.date}</span>
+                                </div>
+                            </div>
+                        );
+                    })}
                 </div>
+
+                <button onClick={handleNext} className="nav-btn right-btn" aria-label="Next">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <path d="M9 18l6-6-6-6" />
+                    </svg>
+                </button>
             </div>
         </section>
     );

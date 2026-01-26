@@ -1,0 +1,372 @@
+/* AboutMe.css */
+
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&family=Inter:wght@400;600;700&display=swap');
+
+.about-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    position: relative;
+}
+
+@media (min-width: 768px) {
+    .about-container {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: 5rem;
+        padding-top: 4rem;
+    }
+}
+
+/* --- Left Column: Image (No Frame) --- */
+.polaroid-wrapper {
+    position: relative;
+    /* Keep the rotation if desired, or set to 0. User didn't explicitly say remove rotation, just frame. */
+    /* Looking at the request "remove the frame", usually implies standard image.
+       Let's keep slight personality but remove the "polaroid" specific white box. */
+    transform: rotate(-3deg);
+    transition: transform 0.3s ease;
+    z-index: 10;
+    width: 300px;
+    /* Define a width for the image container */
+    max-width: 100%;
+}
+
+.polaroid-wrapper:hover {
+    transform: rotate(0deg) scale(1.02);
+}
+
+/* The prompt removed .polaroid-frame from JSX, so we style the image directly */
+.polaroid-img {
+    width: 100%;
+    height: auto;
+    /* Maintain aspect ratio */
+    display: block;
+    border-radius: 12px;
+    /* Soft radius */
+    object-fit: cover;
+}
+
+.polaroid-caption {
+    display: none;
+    /* Hide caption styles just in case */
+}
+
+/* Pushpin simulation - removing as user removed from DOM, but good to clean CSS */
+.pushpin {
+    display: none;
+}
+
+.pushpin::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+}
+
+/* --- Right Column: Content --- */
+.content-wrapper {
+    flex: 1;
+    max-width: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-top: 2rem;
+    /* Align with visual center of polaroid roughly */
+}
+
+.about-headline {
+    font-family: 'Inter', sans-serif;
+    font-size: 2.25rem;
+    /* ~36px */
+    line-height: 1.2;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 1.5rem;
+}
+
+.about-description {
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 2rem;
+}
+
+/* --- 3D Folder Integration (Bottom Right) --- */
+/* We position this relative to the content wrapper or absolutely */
+.interactive-element {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 2rem;
+    /* Negative margin to pull it up slightly like the drone in the image */
+    margin-right: -2rem;
+}
+
+@media (max-width: 768px) {
+    .about-container {
+        padding-top: 6.5rem;
+        /* adjusted for smaller content */
+        padding-bottom: 9rem;
+        gap: 1.25rem;
+    }
+
+    .polaroid-wrapper {
+        margin-top: 0.5rem;
+        width: 150px !important;
+        max-width: 150px !important;
+    }
+
+    .about-headline {
+        font-size: 1.5rem;
+        /* Reduced to ~24px */
+        text-align: center;
+        margin-top: 0.75rem;
+    }
+
+    .about-description {
+        font-size: 0.95rem;
+        /* Slightly smaller body text */
+        text-align: center;
+        padding: 0 1rem;
+        line-height: 1.5;
+    }
+
+    .content-wrapper {
+        padding-top: 0;
+        align-items: center;
+    }
+
+    .polaroid-img {
+        border-radius: 4px;
+        /* User requested radius 4 on mobile */
+    }
+}
+
+
+/* --- Re-including the Folder CSS from previous step --- */
+.folder {
+    position: relative;
+    width: 160px;
+    height: 115px;
+    transform-style: preserve-3d;
+    transform: perspective(700px) rotateX(16deg) rotateY(-10deg);
+    /* Slight angle adjustment for view */
+    transition: transform 0.35s ease, box-shadow 0.35s ease;
+    cursor: pointer;
+    /* subtle base glow */
+    box-shadow:
+        0 0 0 rgba(0, 0, 0, 0.0),
+        0 0 0 rgba(255, 215, 120, 0.0);
+}
+
+/* glow + lift on hover */
+.folder:hover {
+    transform: perspective(700px) translateY(-8px) rotateX(10deg) rotateY(-5deg);
+    box-shadow:
+        0 16px 35px rgba(0, 0, 0, 0.55),
+        0 0 25px rgba(255, 228, 150, 0.75),
+        0 0 60px rgba(255, 228, 150, 0.45);
+}
+
+.folder::before {
+    /* soft under shadow */
+    content: "";
+    position: absolute;
+    inset: auto 8px -26px 8px;
+    height: 26px;
+    background: radial-gradient(ellipse at center,
+            rgba(0, 0, 0, 0.5),
+            transparent 70%);
+    opacity: 0.6;
+    transition: opacity 0.35s ease, transform 0.35s ease;
+    transform: scale(1);
+    pointer-events: none;
+}
+
+.folder:hover::before {
+    opacity: 0.25;
+    transform: scale(1.05);
+}
+
+/* back part of folder */
+.folder-back {
+    position: absolute;
+    inset: 0;
+    border-radius: 18px;
+    background: linear-gradient(145deg, #facc4a, #f59e0b);
+    box-shadow:
+        0 10px 24px rgba(0, 0, 0, 0.45),
+        inset 0 0 10px rgba(255, 255, 255, 0.35);
+    overflow: hidden;
+}
+
+/* subtle inner highlight */
+.folder-back::after {
+    content: "";
+    position: absolute;
+    inset: 4px 8px 40px 8px;
+    border-radius: 14px;
+    background: linear-gradient(145deg,
+            rgba(255, 255, 255, 0.35),
+            rgba(255, 255, 255, 0.05));
+    mix-blend-mode: screen;
+    opacity: 0.65;
+    pointer-events: none;
+}
+
+/* front flap */
+.folder-front {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 75%;
+    border-radius: 0 0 18px 18px;
+    background: linear-gradient(145deg, #fbbf24, #ea9708);
+    transform-origin: bottom;
+    transform: rotateX(0deg);
+    transition: transform 0.35s ease;
+    box-shadow:
+        0 -5px 14px rgba(0, 0, 0, 0.4),
+        inset 0 8px 10px rgba(255, 255, 255, 0.22);
+    overflow: hidden;
+}
+
+.folder-front::after {
+    /* highlight strip at top of flap */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 18px;
+    background: linear-gradient(to bottom,
+            rgba(255, 255, 255, 0.6),
+            rgba(255, 255, 255, 0.0));
+    opacity: 0.9;
+    pointer-events: none;
+}
+
+/* folder tab */
+.folder-tab {
+    position: absolute;
+    top: -28px;
+    left: 14px;
+    width: 70px;
+    height: 28px;
+    border-radius: 10px 10px 3px 3px;
+    background: linear-gradient(145deg, #fde047, #fbbf24);
+    box-shadow:
+        0 6px 12px rgba(0, 0, 0, 0.35),
+        inset 0 0 6px rgba(255, 255, 255, 0.6);
+}
+
+.folder-tab::after {
+    /* small label */
+    content: "";
+    position: absolute;
+    inset: 8px 10px 8px 16px;
+    border-radius: 999px;
+    background: linear-gradient(145deg,
+            rgba(255, 255, 255, 0.9),
+            rgba(209, 213, 219, 0.95));
+    opacity: 0.85;
+}
+
+/* files inside */
+.folder-files {
+    position: absolute;
+    inset: 14px 14px 30px 14px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    gap: 6px;
+    transform: translateY(14px);
+    transition: transform 0.35s ease;
+}
+
+.file {
+    display: block;
+    height: 18px;
+    border-radius: 5px;
+    background: linear-gradient(145deg, #ffffff, #e5e7eb);
+    box-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.18),
+        inset 0 0 4px rgba(148, 163, 184, 0.55);
+    opacity: 0.96;
+    position: relative;
+    overflow: hidden;
+}
+
+.file::after {
+    /* right edge accent */
+    content: "";
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 18px;
+    height: 100%;
+    background: linear-gradient(to left,
+            rgba(59, 130, 246, 0.35),
+            transparent);
+    opacity: 0.7;
+}
+
+.file-1 {
+    width: 78%;
+}
+
+.file-2 {
+    width: 92%;
+}
+
+.file-3 {
+    width: 66%;
+}
+
+/* hover: open flap + lift files */
+.folder:hover .folder-front {
+    transform: rotateX(-46deg);
+}
+
+.folder:hover .folder-files {
+    transform: translateY(-4px);
+}
+
+/* slight stagger using transitions */
+.file-1 {
+    transition: transform 0.32s ease 0.02s;
+}
+
+.file-2 {
+    transition: transform 0.32s ease 0.06s;
+}
+
+.file-3 {
+    transition: transform 0.32s ease 0.10s;
+}
+
+.folder:hover .file-1 {
+    transform: translateY(-2px);
+}
+
+.folder:hover .file-2 {
+    transform: translateY(-4px);
+}
+
+.folder:hover .file-3 {
+    transform: translateY(-6px);
+}

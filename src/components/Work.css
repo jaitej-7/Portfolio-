@@ -1,0 +1,215 @@
+.work-section {
+    width: 100%;
+    /* max-width: 1300px; - Removed to allow carousel full width */
+    margin: 0 auto;
+    padding: 4rem 2rem;
+    color: #000;
+    text-align: center;
+    font-family: 'Inter', sans-serif;
+    max-width: 1100px;
+    /* Wide enough for 3 cards (approx 900px) + padding */
+    overflow: visible;
+    /* Allow buttons to hang outside */
+}
+
+/* ... header/subtitle styles ... */
+
+.carousel-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    margin-top: 2rem;
+    width: 100%;
+    max-width: 1016px;
+    /* Limit width to force scroll and center */
+    overflow: visible;
+    /* Allow buttons to hang outside */
+}
+
+.carousel-track {
+    display: flex;
+    gap: 24px;
+    /* 1.5rem gap */
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    padding: 1rem 4px;
+    /* Add small horizontal padding */
+    /* Remove horizontal padding from track */
+    width: 100%;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: flex-start;
+    /* Fix: changed from center to flex-start to prevent start clipping */
+    /* distinct change: center the items if they fit */
+    margin: 0 auto;
+    padding-left: 4px;
+    padding-right: 4px;
+}
+
+/* ... existing code ... */
+
+.work-card {
+    flex: 0 0 auto;
+    width: 320px;
+    /* Slightly wider to match reference visual weight */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    transition: transform 0.3s ease;
+    padding: 0;
+    border-radius: 0;
+    box-shadow: none;
+    overflow: visible;
+    background-color: transparent;
+    position: relative;
+    z-index: 60;
+}
+
+.card-image-container {
+    width: 100%;
+    /* Fill card width */
+    height: 220px;
+    /* Taller image */
+    border-radius: 16px;
+    overflow: hidden;
+    background-color: #f0f0f0;
+    margin-bottom: 0;
+    /* content has mt-4 */
+    border: 1px solid #eee;
+}
+
+.case-study-tag {
+    display: inline-block;
+    padding: 2px 8px;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    font-size: 0.70rem;
+    color: #9ca3af;
+    background-color: #fff;
+    font-weight: 500;
+    margin: 0;
+}
+
+.nav-button {
+    position: absolute;
+    top: 110px;
+    /* Aligned with image center (220px/2) */
+    transform: translateY(-50%);
+    background: white;
+    border: 1px solid #e5e7eb;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    z-index: 10;
+    color: #1f2937;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.left-btn {
+    left: -60px;
+    /* Moved in */
+}
+
+.right-btn {
+    right: -60px;
+    /* Moved in */
+}
+
+/* Intermediate breakpoint to pull buttons in/over */
+@media (max-width: 1100px) {
+    .left-btn {
+        left: 18px;
+    }
+
+    .right-btn {
+        right: 18px;
+    }
+}
+
+.nav-button:hover {
+    background-color: #f9fafb;
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+@media (max-width: 768px) {
+    .work-section {
+        padding: 8rem 0rem 4rem;
+        /* 8rem top matching Exp, reduced side padding for full bleed carousel */
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .work-title {
+        font-size: 2rem;
+    }
+
+    .work-subtitle {
+        padding: 0 1rem;
+    }
+
+    .carousel-container {
+        flex-direction: column;
+        /* Keep column to stack buttons conceptually if needed, but buttons are absolute */
+        width: 100%;
+        max-width: 100%;
+        gap: 0;
+        margin-top: 1rem;
+        padding-bottom: 2rem;
+    }
+
+    .carousel-track {
+        flex-direction: row;
+        /* Horizontal Scroll */
+        gap: 1rem;
+        overflow-x: auto;
+        width: 100%;
+        padding: 0 1rem;
+        /* Padding for scroll edges */
+        scroll-snap-type: x mandatory;
+        justify-content: flex-start;
+    }
+
+    .work-card {
+        width: 100%;
+        min-width: 80%;
+        /* Show one card at a time */
+        max-width: none;
+        margin: 0;
+        scroll-snap-align: center;
+        transform: none !important;
+    }
+
+    .card-image-container {
+        height: 180px;
+        /* Reduced further per request */
+    }
+
+    /* Visible Centered Buttons */
+    .nav-button {
+        display: flex !important;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 80;
+        /* Higher than cards (z-60) */
+        background: white;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .left-btn {
+        left: 0;
+    }
+
+    .right-btn {
+        right: 0;
+    }
+}

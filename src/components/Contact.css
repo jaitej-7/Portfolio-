@@ -1,0 +1,156 @@
+.contact-section {
+    width: 100%;
+    min-height: 100vh;
+    /* Takes full screen height */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', sans-serif;
+    color: #1a1a1a;
+    position: relative;
+    padding: 2rem;
+    text-align: center;
+}
+
+
+
+.contact-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center horizontally */
+    margin-top: 0;
+    text-align: center;
+    /* Center text */
+    position: relative;
+    z-index: 60;
+    /* Above helicopter */
+}
+
+.drone-container {
+    width: 300px;
+    height: 300px;
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 60;
+}
+
+.drone-image {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.2));
+}
+
+.contact-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    color: #1a1a1a;
+}
+
+.contact-subtitle {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    color: #4a5568;
+    max-width: 800px;
+    margin-bottom: 2rem;
+    margin-left: auto;
+    /* Center with max-width */
+    margin-right: auto;
+}
+
+.contact-cta {
+    font-size: 1.25rem;
+    color: #718096;
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.contact-cta:hover {
+    color: #000;
+    border-bottom-color: #000;
+}
+
+.contact-footer {
+    position: absolute;
+    bottom: 120px;
+    /* Above nav bar */
+    display: flex;
+    gap: 2rem;
+    font-size: 1rem;
+    color: #a0aec0;
+    z-index: 60;
+}
+
+.footer-link {
+    color: #666;
+    text-decoration: none;
+    transition: all 0.2s ease;
+    border-bottom: 1px solid transparent;
+    font-weight: 500;
+}
+
+.footer-link:hover {
+    transform: translateY(-2px);
+}
+
+.footer-link.linkedin {
+    color: #0077b5;
+    /* LinkedIn Blue */
+}
+
+.footer-link.linkedin:hover {
+    color: #005582;
+    border-bottom-color: #005582;
+}
+
+.footer-link.email {
+    color: #333;
+    /* Dark Gray */
+}
+
+.footer-link.email:hover {
+    color: #000;
+    border-bottom-color: #000;
+}
+
+@media (max-width: 768px) {
+    .contact-section {
+        padding: 8rem 1.5rem 2rem;
+        /* Consistent top padding */
+        justify-content: flex-start;
+    }
+
+    .contact-title {
+        font-size: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .drone-container {
+        width: 200px;
+        height: 200px;
+        margin-bottom: 1rem;
+    }
+
+    .contact-footer {
+        position: relative;
+        bottom: auto;
+        margin-top: 4rem;
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+        /* Center footer links */
+        padding-bottom: 6rem;
+        /* Space for nav */
+    }
+}
