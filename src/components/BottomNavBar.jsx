@@ -74,7 +74,7 @@ const BottomNavBar = ({ onNavigate }) => {
                         <img
                             src={activeTab === item.id ? item.activeIcon : item.icon}
                             alt={item.label}
-                            className={`w-6 h-6 md:w-10 md:h-10 object-contain transition-all duration-300 ${activeTab === item.id ? 'filter-primary scale-110' : 'opacity-60 hover:opacity-100'}`}
+                            className={`w-6 h-6 md:w-8 md:h-8 object-contain transition-all duration-300 ${activeTab === item.id ? 'filter-primary scale-110' : 'opacity-60 hover:opacity-100'}`}
                         />
                     </a>
                 ))}

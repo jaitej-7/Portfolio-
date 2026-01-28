@@ -16,10 +16,10 @@ const Hero = () => {
         <div ref={containerRef} className="relative w-full h-screen flex flex-col items-center justify-center pointer-events-none select-none overflow-hidden">
 
             {/* Main Content Layer */}
-            <div className="relative z-60 text-center pointer-events-auto mt-32 md:mt-40">
+            <div className="relative z-60 text-center pointer-events-auto mt-[15vh] lg:mt-[12vh]">
                 <FadeUpText
                     text="You’ll understand me better through <br/> work than words."
-                    className="text-[24px] md:text-[36px] font-['Noto_Sans'] font-semibold text-[#292929] leading-[1.3] mb-4 md:mb-6 max-w-4xl mx-auto px-4"
+                    className="text-[24px] lg:text-[28px] xl:text-[36px] font-['Noto_Sans'] font-semibold text-[#292929] leading-[1.3] mb-4 md:mb-6 max-w-4xl mx-auto px-4"
                     delay={0.2}
                 />
 
@@ -27,7 +27,7 @@ const Hero = () => {
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4 }}
-                    className="text-[14px] md:text-[16px] font-['Noto_Sans'] text-[#393D40] leading-[1.6] font-normal mb-8 max-w-xl mx-auto px-6"
+                    className="text-[14px] lg:text-[15px] xl:text-[16px] font-['Noto_Sans'] text-[#393D40] leading-[1.6] font-normal mb-8 max-w-xl mx-auto px-6"
                 >
                     Every choice I make in design comes from somewhere — and if you’re curious enough, you’ll see the pattern.
                 </motion.p>
@@ -49,13 +49,14 @@ const Hero = () => {
 
 
             {/* Interactive Elements Layer - Folders and Stickies */}
+            {/* Using widths to scale down on Laptop (lg) without hiding */}
 
             {/* Top Left: Vibe Coding Folder */}
             <motion.img
                 src={VibeFolder}
                 alt="Vibe Coding"
                 drag
-                initial={{ opacity: 0, scale: 0.8, x: -100 }}
+                initial={{ opacity: 0, scale: 0.1, x: -100 }}
                 animate={{
                     opacity: 1,
                     scale: 1,
@@ -68,7 +69,7 @@ const Hero = () => {
                     scale: { duration: 0.8, delay: 0.2 },
                     x: { duration: 0.8, delay: 0.2 }
                 }}
-                className="hidden lg:block absolute top-20 left-4 md:top-28 md:left-20 w-40 md:w-56 h-auto object-contain pointer-events-auto cursor-grab active:cursor-grabbing"
+                className="hidden lg:block absolute top-[15%] left-[8%] w-32 lg:w-24 xl:w-48 h-auto object-contain pointer-events-auto cursor-grab active:cursor-grabbing"
             />
 
             {/* Top Right: Blue Sticky */}
@@ -89,7 +90,7 @@ const Hero = () => {
                     scale: { duration: 0.8, delay: 0.4 },
                     x: { duration: 0.8, delay: 0.4 }
                 }}
-                className="hidden lg:block absolute top-24 right-4 md:top-32 md:right-24 w-32 md:w-48 h-auto object-contain pointer-events-auto origin-center rotate-3 cursor-grab active:cursor-grabbing"
+                className="hidden lg:block absolute top-[18%] right-[10%] w-28 lg:w-16 xl:w-40 h-auto object-contain pointer-events-auto origin-center rotate-3 cursor-grab active:cursor-grabbing"
             />
 
             {/* Bottom Left: Yellow Sticky */}
@@ -110,7 +111,7 @@ const Hero = () => {
                     scale: { duration: 0.8, delay: 0.6 },
                     x: { duration: 0.8, delay: 0.6 }
                 }}
-                className="hidden lg:block absolute bottom-12 left-4 md:bottom- md:left-20 w-32 md:w-48 h-auto object-contain pointer-events-auto origin-center -rotate-6 cursor-grab active:cursor-grabbing"
+                className="hidden lg:block absolute bottom-[15%] left-[8%] w-28 lg:w-16 xl:w-40 h-auto object-contain pointer-events-auto origin-center -rotate-6 cursor-grab active:cursor-grabbing"
             />
 
             {/* Bottom Right: Design Folder */}
@@ -131,7 +132,7 @@ const Hero = () => {
                     scale: { duration: 0.8, delay: 0.8 },
                     x: { duration: 0.8, delay: 0.8 }
                 }}
-                className="hidden lg:block absolute bottom-8 right-6 md:bottom-12 md:right-24 w-48 md:w-72 h-auto object-contain pointer-events-auto cursor-grab active:cursor-grabbing"
+                className="hidden lg:block absolute bottom-[12%] right-[8%] w-40 lg:w-32 xl:w-64 h-auto object-contain pointer-events-auto cursor-grab active:cursor-grabbing"
             />
 
         </div>

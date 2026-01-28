@@ -40,14 +40,13 @@ const HelicopterModel = () => {
 };
 
 // --- Scene Container with Logic ---
-const SceneContent = ({ activeSection, isMobile }) => {
+const SceneContent = ({ activeSection, isMobile, isLaptop }) => {
     const heliRef = useRef();
 
     useFrame((state) => {
         if (!heliRef.current) return;
 
         // Define target positions based on section
-        // Coordinates are approximate viewport units: 0 is center
         let targetPos = { x: 0, y: 0, z: 0 };
         let targetRot = { x: 0, y: -0.5, z: 0 }; // Default rotation
         let targetScale = 0.5; // Base scale
@@ -55,41 +54,70 @@ const SceneContent = ({ activeSection, isMobile }) => {
         if (isMobile) {
             // Mobile Logic: Only visible on Home
             if (activeSection === 'home' || activeSection === '') {
-                targetPos = { x: 0, y:0.8, z: 0 }; // Top center
+                targetPos = { x: 0, y: 0.8, z: 0 }; // Top center
                 targetScale = 1.2; // Increased for mobile visibility
             } else {
                 targetPos = { x: 0, y: 10, z: -5 }; // Fly away up
                 targetScale = 0; // Shrink/Hide
             }
-        } else {
-            // Desktop Logic
+        } else if (isLaptop) {
+            // Laptop / Small Desktop Logic (13-inch screens)
             switch (activeSection) {
                 case 'about':
-                    targetPos = { x: 5.5, y: 0.8, z: 0 }; // Right side
+                    targetPos = { x: 5.5, y: 0.7, z: 0 }; // Right side, closer
                     targetRot = { x: 0.1, y: -0.8, z: 0.1 };
-                    targetScale = 1.2; // Increased
+                    targetScale = 1.0;
                     break;
                 case 'experience':
-                    targetPos = { x: -6, y: 0.2, z: 0 }; // Top Left
+                    targetPos = { x: -5.5, y: 0.7, z: 0 }; // Top Left, closer
                     targetRot = { x: 0, y: 0.8, z: -0.1 };
-                    targetScale = 1.5; // Increased
+                    targetScale = 1.1;
                     break;
                 case 'work':
-                    targetPos = { x: 6.5, y: -3.5, z: 1 }; // Bottom Right
-                    targetRot = { x: -0.5, y: -0.8, z: -0.1 };
-                    targetScale = 1; // Increased
+                    // Prevent going off screen bottom-right
+                    targetPos = { x: 5.8, y: 1.5, z: 1 };
+                    targetRot = { x: 0.1, y: -0.9, z: 0.1 };
+                    targetScale = 0.8;
                     break;
                 case 'contact':
-                    targetPos = { x: 0, y: 0.5, z: 3 }; // Center Close
+                    targetPos = { x: 0, y: 0.5, z: 3 };
                     targetRot = { x: 0.1, y: 0, z: 0 };
-                    targetScale = 1.0; // Larger impact
+                    targetScale = 0.9;
                     break;
                 case 'home':
                 default:
-                    // Moved up to avoid overlapping the center text
                     targetPos = { x: 0, y: 0.7, z: 0 };
                     targetRot = { x: 0.2, y: -0.3, z: 0 };
-                    targetScale = 1.5; // Increased significantly per user request
+                    targetScale = 1.2;
+            }
+        } else {
+            // Desktop Logic (>1400px)
+            switch (activeSection) {
+                case 'about':
+                    targetPos = { x: 5.5, y: 0.8, z: 0 };
+                    targetRot = { x: 0.1, y: -0., z: 0.1 };
+                    targetScale = 1.2;
+                    break;
+                case 'experience':
+                    targetPos = { x: -6, y: 0.2, z: 0 };
+                    targetRot = { x: 0, y: 0.8, z: -0.1 };
+                    targetScale = 1.5;
+                    break;
+                case 'work':
+                    targetPos = { x: 6.5, y: 1.5, z: 1 };
+                    targetRot = { x: 0.1, y: -0.9, z: 0.1 };
+                    targetScale = 1;
+                    break;
+                case 'contact':
+                    targetPos = { x: 0, y: 0.5, z: 3 };
+                    targetRot = { x: 0.1, y: 0, z: 0 };
+                    targetScale = 1.0;
+                    break;
+                case 'home':
+                default:
+                    targetPos = { x: 0, y: 0.7, z: 0 };
+                    targetRot = { x: 0.2, y: -0.3, z: 0 };
+                    targetScale = 1.5;
             }
         }
 
@@ -105,8 +133,8 @@ const SceneContent = ({ activeSection, isMobile }) => {
             targetRot.z -= mouseX * 0.2; // Bank turn
 
             // Move slightly towards mouse
-            targetPos.x += mouseX * 1.5;
-            targetPos.y += mouseY * 1.5;
+            targetPos.x += mouseX * (isLaptop ? 1.0 : 1.5); // Less movement on small screens
+            targetPos.y += mouseY * (isLaptop ? 1.0 : 1.5);
         }
 
         // Smoothly interpolate current position to target
@@ -149,9 +177,17 @@ useGLTF.preload('/radio_helicopter.glb');
 const HelicopterScene = () => {
     const [activeSection, setActiveSection] = useState('home');
     const [isMobile, setIsMobile] = useState(false);
+    const [isLaptop, setIsLaptop] = useState(false);
 
     useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 768);
+        const handleResize = () => {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            setIsMobile(width < 768);
+            // Consider "Laptop" as either medium width OR short height (common in small laptops)
+            // But exclude mobile
+            setIsLaptop(width >= 768 && (width < 1440 || height < 800));
+        };
         const handleHashChange = () => {
             const hash = window.location.hash.replace('#', '');
             setActiveSection(hash || 'home');
@@ -182,7 +218,7 @@ const HelicopterScene = () => {
                 <directionalLight position={[10, 10, 5]} intensity={2} castShadow />
                 <pointLight position={[-10, -10, -5]} intensity={1} color="#FFD700" />
 
-                <SceneContent activeSection={activeSection} isMobile={isMobile} />
+                <SceneContent activeSection={activeSection} isMobile={isMobile} isLaptop={isLaptop} />
 
                 {/* Environment for realistic reflections if the model supports it */}
                 <Environment preset="city" />
