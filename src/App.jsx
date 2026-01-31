@@ -8,10 +8,12 @@ import Experience from './components/Experience';
 import Work from './components/Work';
 import Contact from './components/Contact';
 import HelicopterScene from './components/HelicopterScene';
+import SEO from './components/SEO';
 
 const App = () => {
   const [canvasPosition, setCanvasPosition] = React.useState(null);
   const [scale, setScale] = React.useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 0.8 : 1);
+  const [currentSection, setCurrentSection] = React.useState('hero');
 
   const handleZoomIn = () => setScale(prev => Math.min(prev + 0.1, 2));
   const handleZoomOut = () => setScale(prev => Math.max(prev - 0.1, 0.5));
@@ -46,15 +48,20 @@ const App = () => {
 
       if (hash === '#about') {
         setCanvasPosition({ x: -ABOUT_POS_X, y: -ABOUT_POS_Y, trigger });
+        setCurrentSection('about');
       } else if (hash === '#experience') {
         setCanvasPosition({ x: -EXPERIENCE_POS_X, y: -EXPERIENCE_POS_Y, trigger });
+        setCurrentSection('experience');
       } else if (hash === '#work') {
         setCanvasPosition({ x: -WORK_POS_X, y: -WORK_POS_Y, trigger });
+        setCurrentSection('work');
       } else if (hash === '#contact') {
         setCanvasPosition({ x: -CONTACT_POS_X, y: -CONTACT_POS_Y, trigger });
+        setCurrentSection('contact');
       } else {
         // Default/Hero position
         setCanvasPosition({ x: 0, y: 0, trigger });
+        setCurrentSection('hero');
       }
     };
 
@@ -78,19 +85,42 @@ const App = () => {
 
     if (hashId === '#about') {
       setCanvasPosition({ x: -ABOUT_POS_X, y: -ABOUT_POS_Y, trigger });
+      setCurrentSection('about');
     } else if (hashId === '#experience') {
       setCanvasPosition({ x: -EXPERIENCE_POS_X, y: -EXPERIENCE_POS_Y, trigger });
+      setCurrentSection('experience');
     } else if (hashId === '#work') {
       setCanvasPosition({ x: -WORK_POS_X, y: -WORK_POS_Y, trigger });
+      setCurrentSection('work');
     } else if (hashId === '#contact') {
       setCanvasPosition({ x: -CONTACT_POS_X, y: -CONTACT_POS_Y, trigger });
+      setCurrentSection('contact');
     } else {
       setCanvasPosition({ x: 0, y: 0, trigger });
+      setCurrentSection('hero');
     }
   };
 
+  const getSEOProps = () => {
+    switch (currentSection) {
+      case 'about':
+        return { title: 'About Me', description: 'Learn more about Jai, a passionate Product Designer.' };
+      case 'experience':
+        return { title: 'Experience', description: 'Explore my professional journey and timeline.' };
+      case 'work':
+        return { title: 'My Work', description: 'A showcase of my recent design projects and case studies.' };
+      case 'contact':
+        return { title: 'Contact', description: 'Get in touch with me for collaborations and opportunities.' };
+      default:
+        return { title: 'Jai | Product Designer', description: 'Portfolio of Jai, a Product Designer specializing in creating intuitive and beautiful digital experiences.' };
+    }
+  };
+
+  const seoProps = getSEOProps();
+
   return (
     <div className="h-screen w-full relative selection:bg-yellow-200 selection:text-black overflow-hidden">
+      <SEO {...seoProps} />
       {/* Fixed UI Overlays - Kept OUTSIDE the canvas so they don't move */}
       <Header onReset={resetToHero} />
       <BottomNavBar

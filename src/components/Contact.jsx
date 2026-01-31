@@ -7,9 +7,9 @@ const Contact = () => {
 
 
             <div className="contact-content">
-                <h1 className="contact-title">
+                <h2 className="contact-title">
                     Let’s build something that actually works.
-                </h1>
+                </h2>
 
                 <p className="contact-subtitle">
                     I’m always open to meaningful conversations — whether it’s a product challenge, a design

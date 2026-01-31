@@ -17,6 +17,7 @@ const Hero = () => {
 
             {/* Main Content Layer */}
             <div className="relative z-60 text-center pointer-events-auto mt-[15vh] lg:mt-[12vh]">
+                <h1 className="sr-only">Jai Tej - Product Designer</h1>
                 <FadeUpText
                     text="You’ll understand me better through <br/> work than words."
                     className="text-[24px] lg:text-[28px] xl:text-[36px] font-['Noto_Sans'] font-semibold text-[#292929] leading-[1.3] mb-4 md:mb-6 max-w-4xl mx-auto px-4"
