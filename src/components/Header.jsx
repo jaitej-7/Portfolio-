@@ -5,7 +5,7 @@ import ResumePDF from '../assets/Resume.pdf';
 const Header = ({ onReset }) => {
     return (
         <nav className="fixed top-0 left-0 right-0 z-[100] py-6 flex justify-center pointer-events-none">
-            <div className="w-full max-w-5xl px-6 flex justify-between items-center">
+            <div className="w-full px-8 md:px-12 flex justify-between items-center">
                 {/* Logo */}
                 <a
                     href="#"

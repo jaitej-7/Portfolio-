@@ -11,6 +11,13 @@ import HelicopterScene from './components/HelicopterScene';
 
 const App = () => {
   const [canvasPosition, setCanvasPosition] = React.useState(null);
+  const [scale, setScale] = React.useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 0.8 : 1);
+
+  const handleZoomIn = () => setScale(prev => Math.min(prev + 0.1, 2));
+  const handleZoomOut = () => setScale(prev => Math.max(prev - 0.1, 0.5));
+  const handleZoomReset = () => {
+    setScale(1);
+  };
 
 
   // Define exact position for About Me section on the canvas
@@ -86,10 +93,16 @@ const App = () => {
     <div className="h-screen w-full relative selection:bg-yellow-200 selection:text-black overflow-hidden">
       {/* Fixed UI Overlays - Kept OUTSIDE the canvas so they don't move */}
       <Header onReset={resetToHero} />
-      <BottomNavBar onNavigate={handleNavigation} />
+      <BottomNavBar
+        onNavigate={handleNavigation}
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
+        onZoomReset={handleZoomReset}
+        currentScale={scale}
+      />
       <HelicopterScene />
 
-      <InfiniteCanvas targetPosition={canvasPosition}>
+      <InfiniteCanvas targetPosition={canvasPosition} scale={scale}>
         <main className="w-full h-full relative z-0 flex items-center justify-center">
           <Hero />
         </main>

@@ -247,10 +247,10 @@
 
 @media (max-width: 768px) {
     .experience-section {
-        padding-top: 24rem;
+        padding-top: 16rem;
         /* Clear fixed header */
         width: 100%;
-        overflow: hidden;
+        overflow: visible;
         padding-bottom: 8rem;
         /* Clear bottom nav */
     }
@@ -262,7 +262,7 @@
     .exp-subtitle {
         font-size: 0.9rem;
         padding: 0 1rem;
-        margin-bottom: 4px;
+        margin-bottom: 12px;
         /* Increased space before cards */
     }
 
@@ -282,7 +282,7 @@
     .role-description {
         font-size: 0.85rem;
         line-height: 1.5;
-        max-h: 200px;
+        max-height: 200px;
         overflow-y: auto;
     }
 
