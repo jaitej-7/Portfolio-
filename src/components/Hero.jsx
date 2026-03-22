@@ -8,6 +8,7 @@ import ResumePDF from '../assets/Resume.pdf';
 
 // --- Animation Components ---
 import FadeUpText from './FadeUpText';
+import Clarity from '@microsoft/clarity';
 
 const Hero = () => {
     const containerRef = useRef(null);
@@ -43,6 +44,9 @@ const Hero = () => {
                     whileTap={{ scale: 0.95 }}
                     transition={{ delay: 0.6 }}
                     className="inline-block bg-[#0077b6] text-white px-8 py-3 rounded-lg font-medium hover:bg-[#006497] transition-colors shadow-lg cursor-pointer"
+                    onClick={() => {
+                        Clarity.event('click_linkedin');
+                    }}
                 >
                     LinkedIn
                 </motion.a>

@@ -6,7 +6,7 @@ const SEO = ({ title, description, keywords, image, url }) => {
     const defaultDescription = "Portfolio of Jai, a Product Designer specializing in creating intuitive and beautiful digital experiences.";
     const defaultKeywords = "Product Designer, UX/UI Design, React Developer, Portfolio, Web Design";
     const defaultImage = "/og-image.jpg"; // You verify if this exists or add one later
-    const siteUrl = "https://jaidesigner.netlify.app"; // Using the netlify one from history, or allow override
+    const siteUrl = "https://jaitej.figweb.site"; // Standardized to the one in index.html
 
     return (
         <Helmet>
@@ -28,6 +28,21 @@ const SEO = ({ title, description, keywords, image, url }) => {
             <meta property="twitter:title" content={title || siteTitle} />
             <meta property="twitter:description" content={description || defaultDescription} />
             <meta property="twitter:image" content={image || defaultImage} />
+
+            {/* Structured Data (JSON-LD) */}
+            <script type="application/ld+json">
+                {JSON.stringify({
+                    "@context": "https://schema.org",
+                    "@type": "Person",
+                    "name": "Jai Tej",
+                    "url": siteUrl,
+                    "jobTitle": "Product Designer",
+                    "description": defaultDescription,
+                    "sameAs": [
+                        "https://www.linkedin.com/in/jai-tej-17b717262/"
+                    ]
+                })}
+            </script>
         </Helmet>
     );
 };

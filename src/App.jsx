@@ -9,6 +9,7 @@ import Work from './components/Work';
 import Contact from './components/Contact';
 import HelicopterScene from './components/HelicopterScene';
 import SEO from './components/SEO';
+import Clarity from '@microsoft/clarity';
 
 const App = () => {
   const [canvasPosition, setCanvasPosition] = React.useState(null);
@@ -40,6 +41,11 @@ const App = () => {
   const CONTACT_POS_X = 2500;
   const CONTACT_POS_Y = window.innerHeight;
   const CONTACT_SECTION_HEIGHT = '100vh'; // Customize viewport height for Contact section
+
+  React.useEffect(() => {
+    // Microsoft Clarity Integration
+    Clarity.init('vzk09jf34w');
+  }, []);
 
   React.useEffect(() => {
     const handleHashChange = () => {
@@ -100,6 +106,13 @@ const App = () => {
       setCurrentSection('hero');
     }
   };
+
+  // Track section changes in Microsoft Clarity
+  React.useEffect(() => {
+    if (currentSection) {
+      Clarity.setTag("section", currentSection);
+    }
+  }, [currentSection]);
 
   const getSEOProps = () => {
     switch (currentSection) {
