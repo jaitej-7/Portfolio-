@@ -1,32 +1,7 @@
 import React, { useRef } from 'react';
 import './Work.css';
-import GridImg from '../assets/Grid.jpg';
-import QuantumImg from '../assets/Quantum Design system.jpg';
-import GradArenaImg from '../assets/GradArena.jpg';
+import { projects } from '../data/projects';
 
-const workData = [
-    {
-        id: 1,
-        image: GridImg,
-        title: "The Grid",
-        description: "GRID is a centralized operations management system designed to help teams manage tasks, approvals, and timesheets in one unified platform.",
-        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Untitled?page-id=0%3A1&node-id=96-22&viewport=-1120%2C607%2C0.14&t=qM3rViuSerdAlKHZ-8&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=16%3A2&hide-ui=1"
-    },
-    {
-        id: 2,
-        image: QuantumImg,
-        title: "Quantum Design System",
-        description: "Quantum Design System is a scalable design foundation created to ensure consistency, speed, and clarity across digital products.",
-        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Portfolio?page-id=0%3A1&node-id=100-193&viewport=-2073%2C633%2C0.19&t=LlwNGzH1rwfBGEUC-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=16%3A2"
-    },
-    {
-        id: 3,
-        image: GradArenaImg,
-        title: "GradArena",
-        description: "GradArena is an AI-based proctored assessment platform designed to conduct secure, scalable online tests for students and graduates.",
-        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Portfolio?page-id=0%3A1&node-id=110-399&viewport=-2073%2C633%2C0.19&t=LlwNGzH1rwfBGEUC-1&scaling=min-zoom&content-scaling=fixed&starting-point-node-id=16%3A2"
-    }
-];
 
 import FadeUpText from './FadeUpText';
 
@@ -67,12 +42,16 @@ const Work = () => {
                 </button>
 
                 <div className="carousel-track" ref={scrollRef}>
-                    {workData.map((item) => (
-                        <a
+                    {projects.map((item) => (
+
+                        <div
                             key={item.id}
-                            href={item.link}
-                            target="_blank"
-                            rel="noopener noreferrer"
+                            onClick={() => {
+                                // Instead of opening directly, we check if the parent component (App.jsx) 
+                                // has passed a way to open the modal.
+                                // If you want to keep the option to go to Figma, we can add a button inside the modal.
+                                window.dispatchEvent(new CustomEvent('openCaseStudy', { detail: item }));
+                            }}
                             className="work-card group cursor-pointer"
                         >
                             <div className="card-image-container relative overflow-hidden">
@@ -91,9 +70,10 @@ const Work = () => {
                                     {item.description}
                                 </p>
                             </div>
-                        </a>
+                        </div>
                     ))}
                 </div>
+
 
                 <button onClick={() => scroll('right')} className="nav-button right-btn" aria-label="Next project">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">

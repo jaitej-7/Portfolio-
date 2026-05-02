@@ -9,12 +9,16 @@ import Work from './components/Work';
 import Contact from './components/Contact';
 import HelicopterScene from './components/HelicopterScene';
 import SEO from './components/SEO';
+import CaseStudyModal from './components/CaseStudyModal';
 import Clarity from '@microsoft/clarity';
+
 
 const App = () => {
   const [canvasPosition, setCanvasPosition] = React.useState(null);
   const [scale, setScale] = React.useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 0.8 : 1);
   const [currentSection, setCurrentSection] = React.useState('hero');
+  const [activeProject, setActiveProject] = React.useState(null);
+
 
   const handleZoomIn = () => setScale(prev => Math.min(prev + 0.1, 2));
   const handleZoomOut = () => setScale(prev => Math.max(prev - 0.1, 0.5));
@@ -114,6 +118,17 @@ const App = () => {
     }
   }, [currentSection]);
 
+  // Listen for Case Study open events from Work.jsx
+  React.useEffect(() => {
+    const handleOpenCaseStudy = (event) => {
+      setActiveProject(event.detail);
+    };
+
+    window.addEventListener('openCaseStudy', handleOpenCaseStudy);
+    return () => window.removeEventListener('openCaseStudy', handleOpenCaseStudy);
+  }, []);
+
+
   const getSEOProps = () => {
     switch (currentSection) {
       case 'about':
@@ -145,7 +160,14 @@ const App = () => {
       />
       <HelicopterScene />
 
+      <CaseStudyModal
+        project={activeProject}
+        isOpen={!!activeProject}
+        onClose={() => setActiveProject(null)}
+      />
+
       <InfiniteCanvas targetPosition={canvasPosition} scale={scale}>
+
         <main className="w-full h-full relative z-0 flex items-center justify-center">
           <Hero />
         </main>
