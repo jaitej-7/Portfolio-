@@ -45,13 +45,13 @@ const BottomNavBar = ({ onNavigate, onZoomIn, onZoomOut, onZoomReset, currentSca
     const percentage = Math.round(currentScale * 100);
 
     return (
-        <div className="fixed bottom-6 w-full px-6 pointer-events-none z-[100] flex justify-center items-center">
+        <div className="fixed md:bottom-6 bottom-0 w-full md:px-6 px-0 pointer-events-none z-[100] flex justify-center items-center">
 
-            {/* Figma-Style Unified Toolbar Container */}
-            <div className="pointer-events-auto bg-white border border-gray-200 shadow-[0_4px_24px_rgba(0,0,0,0.06)] rounded-xl flex items-center p-1.5 gap-1">
+            {/* Container: M3 on mobile, Figma on md+ */}
+            <div className="pointer-events-auto w-full md:w-auto bg-[#F7F9FC] md:bg-white border-t border-gray-200 md:border md:shadow-[0_4px_24px_rgba(0,0,0,0.06)] md:rounded-xl flex items-center justify-between md:justify-center p-1 md:p-1.5 pb-safe md:pb-1.5 gap-0 md:gap-1">
 
                 {/* Left Section: Navigation Items */}
-                <div className="flex items-center gap-1 px-1">
+                <div className="flex items-center justify-evenly w-full md:w-auto md:gap-1 md:px-1">
                     {navItems.map((item) => {
                         const isActive = activeTab === item.id;
                         return (
@@ -64,40 +64,54 @@ const BottomNavBar = ({ onNavigate, onZoomIn, onZoomOut, onZoomReset, currentSca
                                     if (window.location.hash !== item.id) window.location.hash = item.id;
                                 }}
                                 className={`
-                                    relative group flex items-center justify-center rounded-lg transition-all duration-150
-                                    w-9 h-9 md:w-10 md:h-10
+                                    relative group flex flex-col md:flex-row items-center justify-center transition-all duration-150
+                                    flex-1 max-w-[4.5rem] md:flex-none md:max-w-none md:w-10 md:h-10 h-16 rounded-2xl md:rounded-lg
                                     ${isActive 
-                                        ? 'bg-[#18A0FB] text-white shadow-sm' 
-                                        : 'hover:bg-gray-100 text-gray-700'
+                                        ? 'md:bg-[#18A0FB] md:text-white md:shadow-sm' 
+                                        : 'md:hover:bg-gray-100 text-gray-700'
                                     }
                                 `}
                             >
-                                {/* Tooltip */}
-                                <span className="absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[11px] font-medium px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-md z-50">
+                                {/* Mobile M3 Active Pill */}
+                                <div className={`
+                                    absolute md:hidden top-1.5 w-14 h-8 rounded-full transition-all duration-300 z-0
+                                    ${isActive ? 'bg-[#C2E7FF] opacity-100 scale-100' : 'bg-transparent opacity-0 scale-90'}
+                                `}></div>
+
+                                {/* Tooltip (Desktop Only) */}
+                                <span className="hidden md:block absolute -top-10 left-1/2 -translate-x-1/2 bg-gray-900 text-white text-[11px] font-medium px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap shadow-md z-50">
                                     {item.label}
                                     <span className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 bg-gray-900 rotate-45"></span>
                                 </span>
 
-                                {item.isLucide ? (
-                                    <item.icon size={18} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-white' : 'text-gray-700'} />
-                                ) : (
-                                    <img
-                                        src={item.icon}
-                                        alt={item.label}
-                                        className={`w-5 h-5 object-contain transition-all duration-150 ${
-                                            isActive ? 'brightness-0 invert' : 'opacity-80 grayscale'
-                                        }`}
-                                    />
-                                )}
+                                {/* Icon Wrapper */}
+                                <div className="relative z-10 flex items-center justify-center w-8 h-8 md:w-full md:h-full mt-1.5 md:mt-0">
+                                    {item.isLucide ? (
+                                        <item.icon size={22} strokeWidth={isActive ? 2.5 : 2} className={`md:w-[18px] md:h-[18px] transition-colors duration-200 ${isActive ? 'md:text-white text-[#001D35]' : 'md:text-gray-700 text-[#44474E]'}`} />
+                                    ) : (
+                                        <img
+                                            src={item.icon}
+                                            alt={item.label}
+                                            className={`w-[22px] h-[22px] md:w-5 md:h-5 object-contain transition-all duration-200 ${
+                                                isActive ? 'md:brightness-0 md:invert brightness-0 opacity-90' : 'opacity-60 grayscale'
+                                            }`}
+                                        />
+                                    )}
+                                </div>
+
+                                {/* Label (Mobile Only) */}
+                                <span className={`md:hidden relative z-10 text-[11px] mt-0.5 mb-1 transition-colors duration-200 tracking-tight ${isActive ? 'text-[#001D35] font-bold' : 'text-[#44474E] font-medium'}`}>
+                                    {item.label}
+                                </span>
                             </a>
                         );
                     })}
                 </div>
 
-                {/* Vertical Divider */}
-                <div className="w-[1px] h-8 bg-gray-200 mx-1"></div>
+                {/* Vertical Divider (Desktop Only) */}
+                <div className="hidden md:block w-[1px] h-8 bg-gray-200 mx-1"></div>
 
-                {/* Right Section: Zoom & Tools */}
+                {/* Right Section: Zoom & Tools (Desktop Only) */}
                 <div className="hidden md:flex items-center gap-1 bg-[#F4F4F4] rounded-lg p-0.5 mx-1">
                     <button
                         onClick={onZoomReset}
@@ -130,13 +144,13 @@ const BottomNavBar = ({ onNavigate, onZoomIn, onZoomOut, onZoomReset, currentSca
                     </button>
                 </div>
                 
-                {/* Vertical Divider */}
+                {/* Vertical Divider (Desktop Only) */}
                 <div className="hidden md:block w-[1px] h-8 bg-gray-200 mx-1"></div>
 
-                {/* Extra Tools (Help) */}
-                <div className="flex items-center pr-1">
+                {/* Extra Tools (Help) (Desktop Only) */}
+                <div className="hidden md:flex items-center pr-1">
                     <button
-                        className="group relative w-9 h-9 md:w-10 md:h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-all"
+                        className="group relative w-10 h-10 flex items-center justify-center rounded-lg hover:bg-gray-100 text-gray-600 transition-all"
                     >
                         <HelpCircle size={18} strokeWidth={2} />
 
