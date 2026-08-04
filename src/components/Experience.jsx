@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import './Experience.css';
 import GADigitalLogo from '../assets/GA Digital.png';
 import TechpixeLogo from '../assets/Techpixe.png';
@@ -52,6 +52,53 @@ const Experience = () => {
         setActiveIndex((prev) => (prev - 1 + experienceData.length) % experienceData.length);
     };
 
+    // Swipe handlers using useRef for performance (prevents re-rendering during swipe)
+    const touchStartRef = useRef(null);
+    const touchEndRef = useRef(null);
+    const minSwipeDistance = 50;
+
+    const onPointerDown = (e) => {
+        touchEndRef.current = null;
+        touchStartRef.current = e.clientX;
+    };
+
+    const onPointerMove = (e) => {
+        if (touchStartRef.current === null) return;
+        touchEndRef.current = e.clientX;
+    };
+
+    // Trackpad swipe support (wheel events)
+    const lastWheelTime = useRef(0);
+    const onWheel = (e) => {
+        const now = Date.now();
+        if (now - lastWheelTime.current < 600) return; // 600ms cooldown per swipe
+
+        if (Math.abs(e.deltaX) > 20) {
+            if (e.deltaX > 0) {
+                handleNext(); // Two-finger swipe left
+            } else {
+                handlePrev(); // Two-finger swipe right
+            }
+            lastWheelTime.current = now;
+        }
+    };
+
+    const onPointerUp = () => {
+        if (!touchStartRef.current || !touchEndRef.current) return;
+        const distance = touchStartRef.current - touchEndRef.current;
+        const isLeftSwipe = distance > minSwipeDistance;
+        const isRightSwipe = distance < -minSwipeDistance;
+        
+        if (isLeftSwipe) {
+            handleNext();
+        } else if (isRightSwipe) {
+            handlePrev();
+        }
+        
+        touchStartRef.current = null;
+        touchEndRef.current = null;
+    };
+
     return (
         <section className="experience-section">
             <div className="flex flex-col items-center mb-1">
@@ -70,7 +117,15 @@ const Experience = () => {
                     </svg>
                 </button>
 
-                <div className="cards-stack">
+                <div 
+                    className="cards-stack"
+                    style={{ touchAction: 'pan-y' }}
+                    onPointerDown={onPointerDown}
+                    onPointerMove={onPointerMove}
+                    onPointerUp={onPointerUp}
+                    onPointerLeave={onPointerUp}
+                    onWheel={onWheel}
+                >
                     {experienceData.map((item, index) => {
                         // Calculate relative position in the stack (0 = Front, 1 = Middle, 2 = Back/Hidden)
                         const length = experienceData.length;

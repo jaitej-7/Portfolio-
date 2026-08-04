@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 import './Work.css';
 import { projects } from '../data/projects';
-
+import { Link } from 'react-router-dom';
 
 import FadeUpText from './FadeUpText';
 
@@ -44,15 +44,10 @@ const Work = () => {
                 <div className="carousel-track" ref={scrollRef}>
                     {projects.map((item) => (
 
-                        <div
+                        <Link
                             key={item.id}
-                            onClick={() => {
-                                // Instead of opening directly, we check if the parent component (App.jsx) 
-                                // has passed a way to open the modal.
-                                // If you want to keep the option to go to Figma, we can add a button inside the modal.
-                                window.dispatchEvent(new CustomEvent('openCaseStudy', { detail: item }));
-                            }}
-                            className="work-card group cursor-pointer"
+                            to={`/project/${item.id}`}
+                            className="work-card group cursor-pointer block"
                         >
                             <div className="card-image-container relative overflow-hidden">
                                 <img
@@ -70,7 +65,7 @@ const Work = () => {
                                     {item.description}
                                 </p>
                             </div>
-                        </div>
+                        </Link>
                     ))}
                 </div>
 
