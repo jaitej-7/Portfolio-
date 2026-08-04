@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Calendar, User, Target, ChevronLeft } from 'lucide-react';
 import { projects } from '../data/projects';
+import { useSEO } from '../hooks/useSEO';
 import BottomNavBar from './BottomNavBar';
 import logo from '../assets/Logo.jpg';
 import ResumePDF from '../assets/Resume.pdf';
@@ -15,6 +16,13 @@ const CaseStudyPage = () => {
     const lastScrollY = React.useRef(0);
 
     const project = projects.find(p => p.id === id);
+
+    // Dynamic SEO for each case study
+    useSEO({
+        title: project ? `${project.title} | Jai Portfolio` : 'Project Not Found | Jai Portfolio',
+        description: project ? project.description : 'UX Case study by Jai.',
+        url: `https://teja-portfolio.netlify.app/project/${id}`
+    });
 
     // Track scroll progress within the page
     useEffect(() => {

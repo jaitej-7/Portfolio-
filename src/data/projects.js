@@ -212,6 +212,20 @@ Why: <mark>Enterprise dashboards demand high data density</mark>. We used Inter 
             { title: "Progressive Disclosure Dashboard", description: "Used progressive disclosure to surface only the most critical KPIs on the home dashboard, hiding complex reporting behind drill-down interactions." },
             { title: "Figma Component Library", description: "Architected a scalable, token-based design system in Figma to hand off pixel-perfect, reusable components to the engineering team." }
         ],
+        useCases: [
+            {
+                title: "Simplifying the Candidate Pipeline",
+                complexContext: "Enterprise recruiters often juggle 15+ open tabs just to cross-reference candidate resumes, technical scores, and email threads for a single role. The cognitive load was massive.",
+                simpleSolution: "I designed a split-screen High-Density Pipeline Table with an embedded Contextual AI panel. Now, recruiters can view the candidate's resume, AI skill-match breakdown, and action items all within a single, unified scrollable view—eliminating tab fatigue.",
+                image: "placeholder: [Pipeline Before/After UI]" // User requested both placeholders and real images
+            },
+            {
+                title: "Designing for AI Trust",
+                complexContext: "Our initial testing revealed a critical problem: recruiters didn't trust the AI. They saw a '95% Match' score but assumed it was a flawed black-box algorithm and ignored it.",
+                simpleSolution: "I redesigned the AI scoring component to prioritize transparency. By adding a 'Why this score?' interaction that highlights exact keyword matches directly on the candidate's parsed resume, AI feature adoption increased by 40%.",
+                image: "placeholder: [AI Trust UI Component]"
+            }
+        ],
         showcase: [
             "placeholder: [Design System Snippet: Token architecture & accessibility contrast checks]",
             "placeholder: [Final UI: The High-Density Pipeline Data Table with Contextual AI]",

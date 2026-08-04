@@ -9,11 +9,19 @@ import Work from './Work';
 import Contact from './Contact';
 import HelicopterScene from './HelicopterScene';
 import SEO from './SEO';
+import { useSEO } from '../hooks/useSEO';
 
 const CanvasHome = () => {
   const [canvasPosition, setCanvasPosition] = React.useState(null);
   const [scale, setScale] = React.useState(typeof window !== 'undefined' && window.innerWidth < 768 ? 0.8 : 1);
   const [currentSection, setCurrentSection] = React.useState('hero');
+
+  // Set Homepage SEO
+  useSEO({
+      title: 'Jai | Product Designer & UX/UI Designer Portfolio',
+      description: 'Jai is a Product Designer and UX/UI Designer specializing in enterprise SaaS, mobile apps, and design systems. View my design portfolio and case studies.',
+      url: 'https://teja-portfolio.netlify.app/'
+  });
 
   const handleZoomIn = () => setScale(prev => Math.min(prev + 0.1, 2));
   const handleZoomOut = () => setScale(prev => Math.max(prev - 0.1, 0.5));
