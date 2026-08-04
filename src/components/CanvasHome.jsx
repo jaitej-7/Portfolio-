@@ -20,7 +20,7 @@ const CanvasHome = () => {
   useSEO({
       title: 'Jai | Product Designer & UX/UI Designer Portfolio',
       description: 'Jai is a Product Designer and UX/UI Designer specializing in enterprise SaaS, mobile apps, and design systems. View my design portfolio and case studies.',
-      url: 'https://teja-portfolio.netlify.app/'
+      url: 'https://jaidesigner.netlify.app/'
   });
 
   const handleZoomIn = () => setScale(prev => Math.min(prev + 0.1, 2));

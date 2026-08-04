@@ -21,7 +21,7 @@ const CaseStudyPage = () => {
     useSEO({
         title: project ? `${project.title} | Jai Portfolio` : 'Project Not Found | Jai Portfolio',
         description: project ? project.description : 'UX Case study by Jai.',
-        url: `https://teja-portfolio.netlify.app/project/${id}`
+        url: `https://jaidesigner.netlify.app/project/${id}`
     });
 
     // Track scroll progress within the page
