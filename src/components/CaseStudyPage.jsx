@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Calendar, User, Target, ChevronLeft } from 'lucide-react';
 import { projects } from '../data/projects';
 import { useSEO } from '../hooks/useSEO';
+import { ReactLenis } from 'lenis/react';
 import BottomNavBar from './BottomNavBar';
 import logo from '../assets/Logo.jpg';
 import ResumePDF from '../assets/Resume.pdf';
@@ -69,6 +70,7 @@ const CaseStudyPage = () => {
     };
 
     return (
+        <ReactLenis root options={{ lerp: 0.08, smoothWheel: true }}>
         <div className="min-h-screen bg-white w-full overflow-x-hidden relative pb-32 md:pb-24">
             {/* Fixed Dotted Background */}
             <div 
@@ -282,6 +284,7 @@ const CaseStudyPage = () => {
             {/* Bottom Nav Bar from Main Page */}
             <BottomNavBar isCaseStudy={true} />
         </div>
+        </ReactLenis>
     );
 };
 
