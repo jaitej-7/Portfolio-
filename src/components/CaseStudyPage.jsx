@@ -107,8 +107,8 @@ const CaseStudyPage = () => {
                 </div>
             </nav>
 
-            <div className="max-w-5xl mx-auto min-h-screen md:min-h-0 pt-24 md:pt-32 md:mb-12 relative">
-                <div className="modal-content-premium !h-auto !overflow-visible !px-6 md:!px-16 !py-8 md:!py-12">
+            <div className="max-w-5xl mx-auto min-h-screen md:min-h-0 pt-20 md:pt-24 md:mb-12 relative">
+                <div className="modal-content-premium !h-auto !overflow-visible !px-6 md:!px-16 !py-6 md:!py-8">
                     {/* Hero Section */}
                     <motion.header 
                         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} 
@@ -116,18 +116,18 @@ const CaseStudyPage = () => {
                     >
                         <div className="hero-content flex flex-col items-center">
                             {/* Breadcrumbs */}
-                            <div className="flex items-center gap-2 text-xs md:text-sm font-semibold mb-6 justify-center bg-gray-50 border border-gray-200 px-4 py-2 rounded-full shadow-sm text-gray-600 max-w-fit mx-auto">
+                            <div className="flex items-center gap-2 text-xs md:text-sm font-semibold mb-4 justify-center bg-gray-50 border border-gray-200 px-4 py-2 rounded-full shadow-sm text-gray-600 max-w-fit mx-auto">
                                 <Link to="/#work" className="hover:text-[#0077b6] transition-colors flex items-center gap-1">
                                     <ChevronLeft size={16} /> <span>Portfolio</span>
                                 </Link>
                                 <span className="text-gray-300">/</span>
                                 <span className="text-blue-600">{project.title}</span>
                             </div>
-                            <h1 className="hero-title text-[32px] font-black mb-4">{project.title}</h1>
-                            <p className="hero-tagline text-lg md:text-xl text-gray-600 mb-8 max-w-2xl mx-auto text-center">{project.tagline}</p>
+                            <h1 className="hero-title text-[32px] font-black mb-2">{project.title}</h1>
+                            <p className="hero-tagline text-lg md:text-xl text-gray-600 mb-6 max-w-2xl mx-auto text-center">{project.tagline}</p>
                         </div>
                         <motion.div 
-                            className="hero-image-wrapper mt-4 rounded-lg overflow-hidden w-full border border-gray-100 shadow-sm"
+                            className="hero-image-wrapper mt-2 rounded-lg overflow-hidden w-full border border-gray-100 shadow-sm"
                         >
                             <img src={project.image} alt={project.title} className="w-full h-auto object-cover" />
                         </motion.div>
@@ -169,8 +169,14 @@ const CaseStudyPage = () => {
                             <p className="block-text text-lg text-gray-600 leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: project.challenge }}></p>
                             
                             {project.placeholders?.challenge && (
-                                <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center mt-8 shadow-sm">
-                                    <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.challenge}</span>
+                                <div className="w-full mt-8 shadow-sm">
+                                    {project.placeholders.challenge.startsWith('img:') ? (
+                                        <img src={project.placeholders.challenge.replace('img:', '')} alt="Challenge Visualization" className="w-full h-auto rounded-lg border border-gray-200" />
+                                    ) : (
+                                        <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
+                                            <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.challenge}</span>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </motion.section>
@@ -181,8 +187,14 @@ const CaseStudyPage = () => {
                             <p className="block-text text-lg text-gray-600 leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: project.solution }}></p>
                             
                             {project.placeholders?.solution && (
-                                <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center mt-8 shadow-sm">
-                                    <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.solution}</span>
+                                <div className="w-full mt-8 shadow-sm">
+                                    {project.placeholders.solution.startsWith('img:') ? (
+                                        <img src={project.placeholders.solution.replace('img:', '')} alt="Solution Visualization" className="w-full h-auto rounded-lg border border-gray-200" />
+                                    ) : (
+                                        <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
+                                            <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.solution}</span>
+                                        </div>
+                                    )}
                                 </div>
                             )}
                         </motion.section>
@@ -194,8 +206,14 @@ const CaseStudyPage = () => {
                                 <p className="block-text text-lg text-gray-600 leading-relaxed whitespace-pre-wrap" dangerouslySetInnerHTML={{ __html: project.decisions }}></p>
                                 
                                 {project.placeholders?.decisions && (
-                                    <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center mt-8 shadow-sm">
-                                        <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.decisions}</span>
+                                    <div className="w-full mt-8 shadow-sm">
+                                        {project.placeholders.decisions.startsWith('img:') ? (
+                                            <img src={project.placeholders.decisions.replace('img:', '')} alt="Decisions Visualization" className="w-full h-auto rounded-lg border border-gray-200" />
+                                        ) : (
+                                            <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
+                                                <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.decisions}</span>
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                             </motion.section>

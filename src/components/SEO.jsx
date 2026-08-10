@@ -4,9 +4,9 @@ import { Helmet } from 'react-helmet-async';
 const SEO = ({ title, description, keywords, image, url }) => {
     const siteTitle = "Jai | Product Designer";
     const defaultDescription = "Portfolio of Jai, a Product Designer specializing in creating intuitive and beautiful digital experiences.";
-    const defaultKeywords = "Product Designer, UX/UI Design, React Developer, Portfolio, Web Design";
+    const defaultKeywords = "Product Designer, UX/UI Design, React Developer, Portfolio, Web Design, UX/UI Designer for hire, B2B SaaS Product Designer, Design Systems Expert, User Experience Designer, Interaction Designer, Figma Designer, Product Designer open to work, Mobile App Designer, Senior UI Designer, End-to-end Product Designer, User Research, Wireframing, Prototyping, Startup Product Designer, Strategic Design, Human-Centered Design";
     const defaultImage = "/og-image.jpg"; // You verify if this exists or add one later
-    const siteUrl = "https://jaitej.figweb.site"; // Standardized to the one in index.html
+    const siteUrl = "https://jaidesigner.netlify.app"; // Standardized to the one in index.html
 
     return (
         <Helmet>

@@ -5,6 +5,8 @@ import QuantumComponentsImg from '../assets/omponetsitems.png';
 import GradArenaImg from '../assets/GradArena.jpg';
 import HireSyncImg from '../assets/HireSync.png';
 import HireSyncMockupImg from '../assets/hiresync_mockup.png';
+import HireSyncEmpathyMap from '../assets/hiresync_empathy_map.jpg';
+import HireSyncWireframes from '../assets/hiresync_wireframes.jpg';
 // import SmartAIHRImg from '../assets/SmartAIHR.png';
 // import KrishitantrickImg from '../assets/Krishitantrick.png';
 
@@ -200,9 +202,9 @@ Why: Recruiters won't trust an AI black box. <mark>Exposing the AI's reasoning</
 Decision: Built a strict atomic design system using Figma variables.
 Why: <mark>Enterprise dashboards demand high data density</mark>. We used Inter for legibility, ensured WCAG AA compliance for all text contrasts, and established a consistent spacing system (4pt grid) to make dense tables readable.`,
         placeholders: {
-            challenge: "[Placeholder: Empathy Map or User Pain Points visualization]",
+            challenge: `img:${HireSyncEmpathyMap}`,
             solution: "[Placeholder: Current vs. Proposed User Journey Map]",
-            decisions: "[Placeholder: Low-Fi Wireframe Explorations & Data Table iterations]"
+            decisions: `img:${HireSyncWireframes}`
         },
         features: [
             { title: "Contextual AI Copilot", description: "Embedded AI insights directly into the resume viewer to prevent context switching, rather than forcing users to a separate AI dashboard." },
