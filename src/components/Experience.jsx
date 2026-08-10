@@ -79,9 +79,11 @@ const Experience = () => {
 
         if (Math.abs(e.deltaX) > 20) {
             if (e.deltaX > 0) {
-                handleNext(); // Two-finger swipe left
+                setSwipeDirection('left');
+                setActiveIndex((prev) => (prev + 1) % experienceData.length);
             } else {
-                handlePrev(); // Two-finger swipe right
+                setSwipeDirection('right');
+                setActiveIndex((prev) => (prev + 1) % experienceData.length);
             }
             lastWheelTime.current = now;
         }
@@ -94,9 +96,11 @@ const Experience = () => {
         const isRightSwipe = distance < -minSwipeDistance;
         
         if (isLeftSwipe) {
-            handleNext();
+            setSwipeDirection('left');
+            setActiveIndex((prev) => (prev + 1) % experienceData.length);
         } else if (isRightSwipe) {
-            handlePrev();
+            setSwipeDirection('right');
+            setActiveIndex((prev) => (prev + 1) % experienceData.length);
         }
         
         touchStartRef.current = null;

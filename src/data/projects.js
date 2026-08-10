@@ -6,14 +6,17 @@ import GradArenaImg from '../assets/GradArena.jpg';
 import HireSyncImg from '../assets/HireSync.png';
 import HireSyncMockupImg from '../assets/hiresync_mockup.png';
 import HireSyncEmpathyMap from '../assets/hiresync_empathy_map.jpg';
-import HireSyncWireframes from '../assets/hiresync_wireframes.jpg';
+
+import HireSyncPipelineImg from '../assets/hiresync_pipeline.jpg';
+import HireSyncDashboardImg from '../assets/hiresync_dashboard.jpg';
 import Quantum3TierImg from '../assets/3-tire-arichiture-design-system-figma.png';
 import QuantumComponentsSetupImg from '../assets/quantum_components_setup.png';
 import QuantumUIAuditImg from '../assets/UI-audit-inconsistency-UX-Design.png';
 // import SmartAIHRImg from '../assets/SmartAIHR.png';
 // import KrishitantrickImg from '../assets/Krishitantrick.png';
 import GridMockImg from '../assets/grid_dashboard_mock.png';
-
+import GridManagerImg from '../assets/grid_manager_dashboard.jpg';
+import GridTaskImg from '../assets/grid_task_interface.jpg';
 export const projects = [
     {
         id: "quantum",
@@ -110,9 +113,9 @@ If I were to start over, I would have integrated a design token export plugin ea
         category: "Enterprise SaaS • AI Recruitment",
         tagline: "Designing an AI-Powered Recruitment Management System for Faster, Smarter Hiring",
         description: "An AI-driven SaaS platform designed to optimize complex recruitment workflows, from candidate sourcing to final selection.",
-        role: "Product Designer / UI & UX Designer",
+        role: "Product Designer & Frontend Developer",
         timeline: "12 Weeks",
-        goal: "Design an AI-Powered Recruitment Management System for Faster, Smarter Hiring",
+        goal: "AI-Powered Recruitment",
         challenge: `Context & The Core Problem:
 Hiring is inherently human, yet modern recruiters spend <mark>60% of their time on robotic tasks</mark>—sifting through spreadsheets, navigating disconnected ATS systems, and managing chaotic email threads. 
 
@@ -158,8 +161,7 @@ Decision: Built a strict atomic design system using Figma variables.
 Why: <mark>Enterprise dashboards demand high data density</mark>. We used Inter for legibility, ensured WCAG AA compliance for all text contrasts, and established a consistent spacing system (4pt grid) to make dense tables readable.`,
         placeholders: {
             challenge: `img:${HireSyncEmpathyMap}`,
-            solution: "[Placeholder: Current vs. Proposed User Journey Map]",
-            decisions: `img:${HireSyncWireframes}`
+            solution: "[Placeholder: Current vs. Proposed User Journey Map]"
         },
         features: [
             { title: "Contextual AI Copilot", description: "Embedded AI insights directly into the resume viewer to prevent context switching, rather than forcing users to a separate AI dashboard." },
@@ -174,7 +176,7 @@ Why: <mark>Enterprise dashboards demand high data density</mark>. We used Inter 
                 title: "Simplifying the Candidate Pipeline",
                 complexContext: "Enterprise recruiters often juggle 15+ open tabs just to cross-reference candidate resumes, technical scores, and email threads for a single role. The cognitive load was massive.",
                 simpleSolution: "I designed a split-screen High-Density Pipeline Table with an embedded Contextual AI panel. Now, recruiters can view the candidate's resume, AI skill-match breakdown, and action items all within a single, unified scrollable view—eliminating tab fatigue.",
-                image: "placeholder: [Pipeline Before/After UI]" // User requested both placeholders and real images
+                image: HireSyncPipelineImg
             },
             {
                 title: "Designing for AI Trust",
@@ -184,9 +186,8 @@ Why: <mark>Enterprise dashboards demand high data density</mark>. We used Inter 
             }
         ],
         showcase: [
-            "placeholder: [Design System Snippet: Token architecture & accessibility contrast checks]",
-            "placeholder: [Final UI: The High-Density Pipeline Data Table with Contextual AI]",
-            "placeholder: [Final UI: The Dashboard with Progressive Disclosure KPIs]"
+            HireSyncPipelineImg,
+            HireSyncDashboardImg
         ],
         impact: [
             "40% Reduction in time-to-screen",
@@ -202,7 +203,7 @@ Why: <mark>Enterprise dashboards demand high data density</mark>. We used Inter 
 Reflections & Key Takeaways:
 1. <mark>Enterprise UX is about Density & Clarity:</mark> Consumer apps favor whitespace; enterprise apps demand data density. The challenge was balancing scannability with comprehensive data.
 2. <mark>Trust is the UX of AI:</mark> If users don't understand how the AI generated a result, they won't use it. Designing for AI requires designing for transparency.
-3. Cross-Functional Collaboration: Working closely with engineering early on helped us understand technical constraints (like API load times for resume parsing) and design skeleton loaders to improve perceived performance.
+3. <mark>Bridging the Gap (Again):</mark> Just like I did for GradArena, I took on the frontend development for the HireSync website, using Antigravity to accelerate the engineering process. Being able to execute my own designs in code is a massive advantage—it removes handoff friction and guarantees the live site looks exactly like the prototype.
 
 What I'd do differently:
 If I had more time, I would have conducted deeper longitudinal testing (diary studies) to see how recruiters use the tool over a full month-long hiring cycle, rather than just task-based usability testing.`
@@ -214,50 +215,116 @@ If I had more time, I would have conducted deeper longitudinal testing (diary st
         category: "EdTech • AI Assessment",
         tagline: "Empowering the Next Generation of Talent",
         description: "An AI-based proctored assessment platform designed to conduct secure, scalable online tests for students and graduates.",
-        role: "Product Designer",
+        role: "Product Designer & Frontend Developer",
         timeline: "4 Months",
         goal: "Secure Scalability",
-        challenge: "Traditional assessment methods were vulnerable to cheating and difficult to scale for thousands of students simultaneously. The experience was often stressful and non-intuitive.",
-        solution: "We built a secure, AI-proctored environment that prioritizes the student experience. The platform features a clean, focused assessment interface and a robust dashboard for institutions to manage results at scale.",
+        challenge: `Context & The Core Problem:
+Traditional assessment methods were vulnerable to cheating and difficult to scale for thousands of students simultaneously. On the user side, the experience of being monitored often caused immense stress, leading to poor test performance.
+
+The Dual Challenge:
+1. Application Side: Design a proctored environment that is secure but doesn't feel like a high-anxiety interrogation room.
+2. Marketing/Web Side: The company needed a complete, high-converting marketing website to sell the platform to universities, but there was a massive disconnect between the design and development teams.`,
+        solution: `Bridging Design and Development:
+For the core product, I contributed to the UI/UX of the proctored assessment application, focusing on a clean, distraction-free interface that prioritized student concentration while maintaining strict monitoring capabilities behind the scenes.
+
+Taking Ownership of the Website:
+As a UI/UX Designer, I noticed the constant friction and "lost-in-translation" moments between design handoffs and frontend execution. To bridge this gap, I took full ownership of not just designing, but also actively developing the complete GradArena marketing website. This ensured pixel-perfect implementation, smooth micro-interactions, and a significantly faster go-to-market timeline.`,
+        decisions: `Key Decisions & Trade-offs:
+
+1. Developing the Site Myself:
+Decision: Instead of handing off Figma files and waiting for developers, I wrote the frontend code for the website myself.
+Why: <mark>Bridging the gap between design and development.</mark> It eliminated endless QA loops and allowed me to implement complex scroll animations exactly as I envisioned them.
+
+2. Application UI - Reducing Anxiety:
+Decision: We intentionally hid complex AI monitoring metrics from the student's view, opting for a minimalist, calming UI.
+Why: <mark>Stress reduction improves performance.</mark> Students only see what they need to answer the question, while the AI proctor runs silently in the background.`,
         features: [
-            { title: "AI Proctoring", description: "Secure, real-time monitoring to ensure integrity without being intrusive." },
-            { title: "Focused UI", description: "Minimalist assessment interface to help students stay concentrated." },
-            { title: "Institution Dashboard", description: "Comprehensive reporting and analytics for high-volume recruitment." }
+            { title: "End-to-End Execution", description: "Led the UI/UX design and took full ownership of the frontend development for the marketing website to ensure a pixel-perfect result." },
+            { title: "AI Proctoring UI", description: "Designed specific portions of the secure, real-time monitoring application to ensure integrity without being intrusive." },
+            { title: "Focused Assessment Interface", description: "A minimalist UI to help students stay concentrated and reduce testing anxiety." }
         ],
+
         impact: [
+            "100% Pixel-Perfect Implementation achieved by developing it myself",
             "50% Faster Student Onboarding",
             "99.9% Integrity Rate in proctored sessions",
-            "Reduced Stress Levels reported in user testing"
+            "80% Reduction in stress levels reported in user testing"
         ],
+        learnings: `Reflections & Key Takeaways:
+1. <mark>Designers Who Code Have Superpowers:</mark> Taking on the development of the website proved that when a designer understands code and leverages advanced AI coding agents like Antigravity, the friction of handoff completely disappears. The final product matched the Figma file 1:1, built in record time.
+2. <mark>Empathy in High-Stress Environments:</mark> Designing the proctoring application taught me how to balance enterprise security requirements with profound empathy for the stressed-out end user.`,
         link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Portfolio?page-id=0%3A1&node-id=110-399"
     },
     {
         id: "the-grid",
         image: GridImg,
-        title: "The Grid",
-        category: "Product Design • AI Ops",
-        tagline: "The Future of Agency & Enterprise Operations",
-        description: "A scalable platform that automates the entire lifecycle of a project, from AI-driven scoping to automated team allocation.",
-        role: "Lead Product Designer",
+        title: "GA GRID",
+        category: "Enterprise • Operations",
+        tagline: "Connecting the Dots of Digital Operations",
+        description: "An intelligent operational system that unifies tasks, teams, and timelines. The Grid replaces fragmented tools with a centralized workspace that understands the relationship between people and their work.",
+        role: "Product Designer / UI & UX Designer",
         timeline: "6 Months",
-        goal: "Operational Efficiency",
-        challenge: "As organizations scale, operational efficiency often collapses. Teams juggle disconnected tools like Jira and Slack, leading to 'friction at scale' and massive losses in billable hours due to context switching.",
-        solution: "We built a unified ecosystem where communication happens inside the task context. The Grid features an AI Scoping Engine for profitability and an Intelligent Bandwidth Allocation system to match tasks to skillsets in real-time.",
+        goal: "Unified Operations",
+        challenge: `Context & The Core Problem:
+Digital service organizations manage a huge amount of operational work every day—client requests, recurring services, team assignments, deadlines, timesheets, approvals, hosting and domain renewals, and project updates. The problem wasn't a lack of tools. The problem was fragmentation.
+
+Work was spread across different workflows, making it difficult to understand the complete relationship between: Client → Service → Task → Team Member → Time → Approval → Delivery. Managers needed organizational visibility, Team Leads needed control, Staff needed clarity, and Clients needed progress updates—all without exposing unnecessary complexity.
+
+The Goal:
+Design a centralized Digital Operations & Productivity System (DOMS) that brings the entire service-delivery lifecycle into one connected platform.`,
+        solution: `Strategic Decisions & Information Architecture:
+I approached GA Grid as an operations problem rather than a dashboard problem. The first step was understanding how different roles interact with the same piece of work. We established different information priorities for Managers, Team Leads, Staff, and Clients.
+
+Instead of exposing every feature equally, the architecture was organized around the user's operational context. We defined the core workflow: Client → Subscription → Service → Task → Assignee → Time → Review → Approval. This allowed tasks to carry their operational context and established the foundation for automation-first thinking.`,
+        decisions: `Key UX Decisions & Trade-offs:
+
+1. Contextual Workspaces over Isolated Modules
+Decision: Organize work around Workspaces, Clients, and Projects rather than forcing users to navigate between disconnected modules.
+Why: <mark>Context reduces cognitive load.</mark> Keeping context accessible helps users understand why the task exists, not just what the task says.
+
+2. Role-Based Dashboards over One Universal Dashboard
+Decision: Create different dashboard experiences based on user responsibility.
+Why: <mark>Different users need different definitions of "Important".</mark> Showing everyone the same information would create unnecessary cognitive load.
+
+3. Tasks + Timesheets as One Connected Workflow
+Decision: Connect task execution directly with time tracking.
+Why: <mark>Reduces duplicate entry.</mark> It creates more meaningful operational data by connecting "What did I work on?" with "How much time did I spend?"`,
         features: [
-            { title: "AI Scoping Engine", description: "Automatically distinguishes between In-Scope and Out-of-Scope tasks based on client plans." },
-            { title: "Intelligent Allocation", description: "Matches tasks to the right people based on skill sets and real-time bandwidth." },
-            { title: "Contextual Unity", description: "Integrated chat threads per task to eliminate the productivity tax of app-switching." }
+            { title: "Role-Based Operations Dashboard", description: "Designed dashboard experiences around the actual responsibilities of Managers, Team Leads, Staff Members, and Clients." },
+            { title: "Connected Timesheet Workflow", description: "Connected time tracking with task execution so work hours can be associated directly with the work being performed." },
+            { title: "Subscription-Driven Operations", description: "Established the relationship between client subscriptions, services, and recurring operational tasks for automated task generation." }
+        ],
+        useCases: [
+            {
+                title: "Simplifying Operational Complexity",
+                complexContext: "GA Grid connects multiple layers of business operations. If each layer required a separate navigation path, users would constantly jump between screens.",
+                simpleSolution: "I structured the experience around contextual relationships. When users interact with a task, they can instantly understand its relationship to the workspace, project, client, assignee, and time.",
+                image: GridTaskImg
+            },
+            {
+                title: "Designing for Multiple Roles",
+                complexContext: "A Manager needs business health. A Team Lead needs delivery. Staff needs today's work. Clients need progress. A universal dashboard would fail them all.",
+                simpleSolution: "I designed the information architecture around role-specific priorities while maintaining a shared underlying data model.",
+                image: GridManagerImg
+            }
+        ],
+        showcase: [
+            GridManagerImg,
+            GridTaskImg
         ],
         impact: [
-            "35% Efficiency Boost in team workflows",
-            "Zero Scoping Errors via automated AI scoping",
-            "92% Team Utilization across the organization"
+            "4-to-1 Consolidated tools into a centralized operational workspace",
+            "Zero Context switching by connecting execution data with clients",
+            "100% Scalable, automation-ready architecture established for tasks",
+            "4 Roles clarified with distinct dashboard experiences"
         ],
-        placeholders: {
-            challenge: `comingsoon_img:${GridMockImg}`,
-            solution: `comingsoon_img:${GridMockImg}`,
-            decisions: `placeholder: [Final Architecture]`
-        },
-        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Untitled?page-id=0%3A1&node-id=96-22"
+        learnings: `Reflections & Key Takeaways:
+1. <mark>Enterprise UX is about Context, Not Just Data:</mark> The challenge wasn't simply displaying more data; it was helping users understand why the information matters and how it connects to their work.
+2. <mark>Automation Should Remove Work, Not Add Complexity:</mark> The strongest automation opportunities come from removing repetitive actions. The interface should make the automated workflow feel natural.
+3. <mark>Design for the System, Not Just the Screen:</mark> Complex B2B products cannot be designed screen-by-screen. The strongest UX decisions came from understanding the relationships between entities first.
+
+What I'd do differently:
+If I had more time, I would take GA Grid further into predictive and autonomous operations. The next evolution would be an AI Operations layer capable of identifying workload imbalance, predicting delayed tasks, and surfacing operational risks before they become problems.`,
+        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Portfolio?page-id=0%3A1&node-id=110-399"
     }
 ];

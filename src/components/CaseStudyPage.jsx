@@ -165,25 +165,31 @@ const CaseStudyPage = () => {
                         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} 
                         className="meta-dashboard mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
                     >
-                        <div className="meta-card bg-gray-50 p-6 rounded-xl border border-gray-100 flex items-start gap-4">
-                            <div className="meta-icon text-blue-500 mt-1"><User size={24} /></div>
-                            <div className="meta-text">
-                                <label className="text-xs uppercase tracking-wider text-gray-500 font-semibold block mb-1">Role</label>
-                                <p className="text-gray-900 font-medium">{project.role}</p>
+                        <div className="meta-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-5 h-full">
+                            <div className="meta-icon bg-blue-50/50 text-blue-600 p-4 rounded-xl flex-shrink-0">
+                                <User size={24} />
+                            </div>
+                            <div className="meta-text flex-1">
+                                <label className="text-[11px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Role</label>
+                                <p className="text-gray-900 font-bold text-sm leading-snug">{project.role}</p>
                             </div>
                         </div>
-                        <div className="meta-card bg-gray-50 p-6 rounded-lg border border-gray-100 flex items-start gap-4">
-                            <div className="meta-icon text-blue-500 mt-1"><Calendar size={24} /></div>
-                            <div className="meta-text">
-                                <label className="text-xs uppercase tracking-wider text-gray-500 font-semibold block mb-1">Timeline</label>
-                                <p className="text-gray-900 font-medium">{project.timeline}</p>
+                        <div className="meta-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-5 h-full">
+                            <div className="meta-icon bg-blue-50/50 text-blue-600 p-4 rounded-xl flex-shrink-0">
+                                <Calendar size={24} />
+                            </div>
+                            <div className="meta-text flex-1">
+                                <label className="text-[11px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Timeline</label>
+                                <p className="text-gray-900 font-bold text-sm leading-snug">{project.timeline}</p>
                             </div>
                         </div>
-                        <div className="meta-card bg-gray-50 p-6 rounded-lg border border-gray-100 flex items-start gap-4">
-                            <div className="meta-icon text-blue-500 mt-1"><Target size={24} /></div>
-                            <div className="meta-text">
-                                <label className="text-xs uppercase tracking-wider text-gray-500 font-semibold block mb-1">Objective</label>
-                                <p className="text-gray-900 font-medium">{project.goal}</p>
+                        <div className="meta-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-5 h-full">
+                            <div className="meta-icon bg-blue-50/50 text-blue-600 p-4 rounded-xl flex-shrink-0">
+                                <Target size={24} />
+                            </div>
+                            <div className="meta-text flex-1">
+                                <label className="text-[11px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Objective</label>
+                                <p className="text-gray-900 font-bold text-sm leading-snug">{project.goal}</p>
                             </div>
                         </div>
                     </motion.div>
@@ -358,13 +364,18 @@ const CaseStudyPage = () => {
                             <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block impact-block bg-gray-50 border border-gray-100 text-gray-900 p-8 md:p-12 rounded-lg mx-[-1.5rem] md:mx-0">
                                 <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">THE OUTCOME</div>
                                 <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">Impact & Results</h2>
-                                <div className="impact-stats-grid grid grid-cols-2 md:grid-cols-4 gap-6">
-                                    {project.impact.map((item, index) => (
+                                <div className="impact-stats-grid grid grid-cols-4 md:grid-cols-2 gap-6">
+                                    {project.impact.map((item, index) => {
+                                        const firstWord = item.split(' ')[0];
+                                        const rest = item.split(' ').slice(1).join(' ');
+                                        const isLong = firstWord.length > 5;
+                                        return (
                                         <div key={index} className="stat-card">
-                                            <div className="stat-value text-4xl md:text-5xl font-black text-blue-500 mb-2">{item.split(' ')[0]}</div>
-                                            <div className="stat-desc text-gray-600 font-medium">{item.split(' ').slice(1).join(' ')}</div>
+                                            <div className={`stat-value font-black text-blue-500 mb-2 break-words ${isLong ? 'text-3xl md:text-3xl' : 'text-4xl md:text-5xl'}`}>{firstWord}</div>
+                                            <div className="stat-desc text-gray-600 font-medium">{rest}</div>
                                         </div>
-                                    ))}
+                                        );
+                                    })}
                                 </div>
                             </motion.section>
                         )}
