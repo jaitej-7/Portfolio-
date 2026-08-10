@@ -7,34 +7,14 @@ import HireSyncImg from '../assets/HireSync.png';
 import HireSyncMockupImg from '../assets/hiresync_mockup.png';
 import HireSyncEmpathyMap from '../assets/hiresync_empathy_map.jpg';
 import HireSyncWireframes from '../assets/hiresync_wireframes.jpg';
+import Quantum3TierImg from '../assets/3-tire-arichiture-design-system-figma.png';
+import QuantumComponentsSetupImg from '../assets/quantum_components_setup.png';
+import QuantumUIAuditImg from '../assets/UI-audit-inconsistency-UX-Design.png';
 // import SmartAIHRImg from '../assets/SmartAIHR.png';
 // import KrishitantrickImg from '../assets/Krishitantrick.png';
+import GridMockImg from '../assets/grid_dashboard_mock.png';
 
 export const projects = [
-    {
-        id: "the-grid",
-        image: GridImg,
-        title: "The Grid",
-        category: "Product Design • AI Ops",
-        tagline: "The Future of Agency & Enterprise Operations",
-        description: "A scalable platform that automates the entire lifecycle of a project, from AI-driven scoping to automated team allocation.",
-        role: "Lead Product Designer",
-        timeline: "6 Months",
-        goal: "Operational Efficiency",
-        challenge: "As organizations scale, operational efficiency often collapses. Teams juggle disconnected tools like Jira and Slack, leading to 'friction at scale' and massive losses in billable hours due to context switching.",
-        solution: "We built a unified ecosystem where communication happens inside the task context. The Grid features an AI Scoping Engine for profitability and an Intelligent Bandwidth Allocation system to match tasks to skillsets in real-time.",
-        features: [
-            { title: "AI Scoping Engine", description: "Automatically distinguishes between In-Scope and Out-of-Scope tasks based on client plans." },
-            { title: "Intelligent Allocation", description: "Matches tasks to the right people based on skill sets and real-time bandwidth." },
-            { title: "Contextual Unity", description: "Integrated chat threads per task to eliminate the productivity tax of app-switching." }
-        ],
-        impact: [
-            "35% Efficiency Boost in team workflows",
-            "Zero Scoping Errors via automated AI scoping",
-            "92% Team Utilization across the organization"
-        ],
-        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Untitled?page-id=0%3A1&node-id=96-22"
-    },
     {
         id: "quantum",
         image: QuantumImg,
@@ -49,7 +29,7 @@ export const projects = [
 As our product suite expanded, design debt accumulated rapidly. Teams were building components in silos, leading to a <mark>40% variance in visual styles</mark> and doubling developer implementation time due to fragmented user experiences.
 
 The Goal:
-Establish a definitive centralized source of truth—a design system that is robust, highly organized, and natively supports <mark>multi-platform responsiveness and future theming</mark> (like dark mode or multi-brand scalability).
+Establish a definitive centralized source of truth—a design system that is robust, highly organized, and natively supports <mark>multi-platform responsiveness and future multi-brand scalability</mark>.
 
 Target Users & Pain Points:
 • Designers: High cognitive load from constantly recreating UI elements and managing inconsistencies.
@@ -77,7 +57,7 @@ Utilized Figma Modes (Desktop, Tablet, Mobile) to fluidly adjust breakpoints, gr
 
 1. Three-Tier Token Architecture:
 Decision: Separated variables into Brands, Alias, and Mapping collections.
-Why: While initially complex to set up, this separation means that <mark>implementing a new brand theme or dark mode</mark> is now a matter of mapping variables, rather than redesigning components.
+Why: While initially complex to set up, this separation means that <mark>implementing a new brand theme</mark> is now a matter of mapping variables, rather than redesigning components.
 
 2. Semantic vs. Literal Naming:
 Decision: Used semantic names (e.g., \`surface/primary\`, \`text/action\`) instead of literal hex values or color names.
@@ -87,9 +67,9 @@ Why: <mark>Semantic naming bridges the gap</mark> between design and development
 Decision: Heavy reliance on boolean, text, and variant properties within Figma.
 Why: Reduced the number of detached instances and <mark>forced designers to use the system</mark> as intended, maintaining consistency.`,
         placeholders: {
-            challenge: "[Placeholder: UI Audit showing inconsistencies]",
-            solution: "[Placeholder: Visual representation of the 3-tier token architecture]",
-            decisions: "[Placeholder: Figma component properties setup]"
+            challenge: `img:${QuantumUIAuditImg}`,
+            solution: `img:${Quantum3TierImg}`,
+            decisions: `img:${QuantumComponentsSetupImg}`
         },
         features: [
             { title: "Multi-Tier Variables", description: "300 variables across Brands, Alias, Mapping, and Responsive collections for ultimate scalability." },
@@ -101,8 +81,7 @@ Why: Reduced the number of detached instances and <mark>forced designers to use 
         ],
         showcase: [
             QuantumVarsImg,
-            QuantumComponentsImg,
-            "placeholder: [Responsive behavior demonstration across Desktop, Tablet, Mobile]"
+            QuantumComponentsImg
         ],
         impact: [
             "70% Faster Development for new features",
@@ -116,37 +95,13 @@ Why: Reduced the number of detached instances and <mark>forced designers to use 
 • Centralizing 2,200+ components reduced designer handoff time by <mark>30%</mark>.
 
 Reflections & Key Takeaways:
-1. <mark>Architecture is Everything:</mark> Investing time upfront to design a rigorous 3-tier variable system saved hundreds of hours down the line when implementing new themes and dark mode.
+1. <mark>Architecture is Everything:</mark> Investing time upfront to design a rigorous 3-tier variable system saved hundreds of hours down the line when implementing new themes.
 2. <mark>Adoption Requires Education:</mark> A design system is useless if teams don't leverage it. Creating comprehensive documentation and hosting integration workshops proved just as critical as building the components themselves.
 3. <mark>Developer Alignment:</mark> Bringing developers into the token naming conversation early ensured that Figma variables mirrored the actual CSS/React architecture perfectly.
 
 What I'd do differently:
 If I were to start over, I would have integrated a design token export plugin earlier in the process to automate the sync between Figma and our GitHub repositories, rather than relying on manual updates during the initial rollout phase.`,
         link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Portfolio?page-id=0%3A1&node-id=100-193"
-    },
-    {
-        id: "gradarena",
-        image: GradArenaImg,
-        title: "GradArena",
-        category: "EdTech • AI Assessment",
-        tagline: "Empowering the Next Generation of Talent",
-        description: "An AI-based proctored assessment platform designed to conduct secure, scalable online tests for students and graduates.",
-        role: "Product Designer",
-        timeline: "4 Months",
-        goal: "Secure Scalability",
-        challenge: "Traditional assessment methods were vulnerable to cheating and difficult to scale for thousands of students simultaneously. The experience was often stressful and non-intuitive.",
-        solution: "We built a secure, AI-proctored environment that prioritizes the student experience. The platform features a clean, focused assessment interface and a robust dashboard for institutions to manage results at scale.",
-        features: [
-            { title: "AI Proctoring", description: "Secure, real-time monitoring to ensure integrity without being intrusive." },
-            { title: "Focused UI", description: "Minimalist assessment interface to help students stay concentrated." },
-            { title: "Institution Dashboard", description: "Comprehensive reporting and analytics for high-volume recruitment." }
-        ],
-        impact: [
-            "50% Faster Student Onboarding",
-            "99.9% Integrity Rate in proctored sessions",
-            "Reduced Stress Levels reported in user testing"
-        ],
-        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Portfolio?page-id=0%3A1&node-id=110-399"
     },
     {
         id: "hiresync",
@@ -251,7 +206,58 @@ Reflections & Key Takeaways:
 
 What I'd do differently:
 If I had more time, I would have conducted deeper longitudinal testing (diary studies) to see how recruiters use the tool over a full month-long hiring cycle, rather than just task-based usability testing.`
+    },
+    {
+        id: "gradarena",
+        image: GradArenaImg,
+        title: "GradArena",
+        category: "EdTech • AI Assessment",
+        tagline: "Empowering the Next Generation of Talent",
+        description: "An AI-based proctored assessment platform designed to conduct secure, scalable online tests for students and graduates.",
+        role: "Product Designer",
+        timeline: "4 Months",
+        goal: "Secure Scalability",
+        challenge: "Traditional assessment methods were vulnerable to cheating and difficult to scale for thousands of students simultaneously. The experience was often stressful and non-intuitive.",
+        solution: "We built a secure, AI-proctored environment that prioritizes the student experience. The platform features a clean, focused assessment interface and a robust dashboard for institutions to manage results at scale.",
+        features: [
+            { title: "AI Proctoring", description: "Secure, real-time monitoring to ensure integrity without being intrusive." },
+            { title: "Focused UI", description: "Minimalist assessment interface to help students stay concentrated." },
+            { title: "Institution Dashboard", description: "Comprehensive reporting and analytics for high-volume recruitment." }
+        ],
+        impact: [
+            "50% Faster Student Onboarding",
+            "99.9% Integrity Rate in proctored sessions",
+            "Reduced Stress Levels reported in user testing"
+        ],
+        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Portfolio?page-id=0%3A1&node-id=110-399"
+    },
+    {
+        id: "the-grid",
+        image: GridImg,
+        title: "The Grid",
+        category: "Product Design • AI Ops",
+        tagline: "The Future of Agency & Enterprise Operations",
+        description: "A scalable platform that automates the entire lifecycle of a project, from AI-driven scoping to automated team allocation.",
+        role: "Lead Product Designer",
+        timeline: "6 Months",
+        goal: "Operational Efficiency",
+        challenge: "As organizations scale, operational efficiency often collapses. Teams juggle disconnected tools like Jira and Slack, leading to 'friction at scale' and massive losses in billable hours due to context switching.",
+        solution: "We built a unified ecosystem where communication happens inside the task context. The Grid features an AI Scoping Engine for profitability and an Intelligent Bandwidth Allocation system to match tasks to skillsets in real-time.",
+        features: [
+            { title: "AI Scoping Engine", description: "Automatically distinguishes between In-Scope and Out-of-Scope tasks based on client plans." },
+            { title: "Intelligent Allocation", description: "Matches tasks to the right people based on skill sets and real-time bandwidth." },
+            { title: "Contextual Unity", description: "Integrated chat threads per task to eliminate the productivity tax of app-switching." }
+        ],
+        impact: [
+            "35% Efficiency Boost in team workflows",
+            "Zero Scoping Errors via automated AI scoping",
+            "92% Team Utilization across the organization"
+        ],
+        placeholders: {
+            challenge: `comingsoon_img:${GridMockImg}`,
+            solution: `comingsoon_img:${GridMockImg}`,
+            decisions: `placeholder: [Final Architecture]`
+        },
+        link: "https://www.figma.com/proto/SFp3cT2KQ3c9Hhx30Y0OhV/Untitled?page-id=0%3A1&node-id=96-22"
     }
 ];
-
-

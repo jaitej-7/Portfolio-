@@ -3,7 +3,7 @@ import { User, Briefcase, PenTool, Phone, Minus, Plus, HelpCircle, Home, RotateC
 
 const BottomNavBar = ({ onNavigate, onZoomIn, onZoomOut, onZoomReset, currentScale = 1, isCaseStudy = false }) => {
     const [activeTab, setActiveTab] = useState(isCaseStudy ? '#work' : '');
-    const [showHelpTooltip, setShowHelpTooltip] = useState(true);
+    const [showHelpTooltip, setShowHelpTooltip] = useState(false);
 
     useEffect(() => {
         if (isCaseStudy) return; // Always keep '#work' active in case study mode
@@ -22,13 +22,7 @@ const BottomNavBar = ({ onNavigate, onZoomIn, onZoomOut, onZoomReset, currentSca
         return () => window.removeEventListener('hashchange', handleHashChange);
     }, [isCaseStudy]);
 
-    // Initial tooltip highlight timer
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowHelpTooltip(false);
-        }, 4000); // Hide after 4 seconds
-        return () => clearTimeout(timer);
-    }, []);
+    // Tooltip highlight timer removed as it no longer auto-opens
 
     const navItems = [
         { id: '#home', label: 'Home', icon: Home, isLucide: true },

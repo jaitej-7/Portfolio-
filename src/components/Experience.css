@@ -15,8 +15,8 @@
 
     /* Stack View Restored */
     .cards-stack {
-        width: 80%;
-        height: 360px;
+        width: 90%; /* Increased from 80% to fit content better on small screens */
+        height: 380px; /* Slightly taller for text wrap */
         margin-bottom: 1rem;
         position: relative;
     }
@@ -59,12 +59,17 @@
 
 .exp-title {
     font-family: 'Inter', sans-serif;
-    font-size: 2.25rem;
-    /* ~36px */
+    font-size: 1.75rem; /* responsive base */
     font-weight: 600;
     margin-bottom: 1rem;
     color: #111;
     line-height: 1.2;
+}
+
+@media (min-width: 768px) {
+    .exp-title {
+        font-size: 2.25rem; /* ~36px */
+    }
 }
 
 .exp-subtitle {
@@ -148,12 +153,19 @@
 }
 
 /* Hidden (Moving out/cycling) */
-/* Hidden (Moving out/cycling) */
 .card-hidden {
     opacity: 0;
-    transform: translateX(-50%) scale(0.9) translateY(20px);
     z-index: 0;
     pointer-events: none;
+}
+
+/* Exit directions */
+.card-hidden.exit-left {
+    transform: translateX(-150%) rotate(-15deg) scale(0.9);
+}
+
+.card-hidden.exit-right {
+    transform: translateX(150%) rotate(15deg) scale(0.9);
 }
 
 /* Navigation Buttons */
@@ -164,7 +176,7 @@
     border-radius: 50%;
     background: white;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-    display: flex;
+    display: none; /* Hidden by default on mobile */
     align-items: center;
     justify-content: center;
     cursor: pointer;
@@ -175,6 +187,12 @@
     color: #1f2937;
     top: 40%;
     transform: translateY(-50%);
+}
+
+@media (min-width: 768px) {
+    .nav-btn {
+        display: flex; /* Show on desktop */
+    }
 }
 
 .left-btn {

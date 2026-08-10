@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import './Work.css';
 import { projects } from '../data/projects';
 import { Link } from 'react-router-dom';
@@ -7,6 +7,24 @@ import FadeUpText from './FadeUpText';
 
 const Work = () => {
     const scrollRef = useRef(null);
+    const [activeIndex, setActiveIndex] = useState(0);
+
+    const handleScroll = () => {
+        if (!scrollRef.current) return;
+        const scrollPosition = scrollRef.current.scrollLeft;
+        // Dynamically calculate item width based on the container to support responsive sizes
+        const itemWidth = scrollRef.current.scrollWidth / projects.length;
+        const newIndex = Math.round(scrollPosition / itemWidth);
+        setActiveIndex(newIndex);
+    };
+
+    useEffect(() => {
+        const currentRef = scrollRef.current;
+        if (currentRef) {
+            currentRef.addEventListener('scroll', handleScroll);
+            return () => currentRef.removeEventListener('scroll', handleScroll);
+        }
+    }, []);
 
     const scroll = (direction) => {
         const { current } = scrollRef;
@@ -75,6 +93,22 @@ const Work = () => {
                         <path d="M9 18l6-6-6-6" />
                     </svg>
                 </button>
+            </div>
+
+            <div className="flex justify-center items-center gap-2 mt-8 mb-24 md:mb-12">
+                {projects.map((_, idx) => (
+                    <button
+                        key={idx}
+                        onClick={() => {
+                            if (scrollRef.current) {
+                                const itemWidth = scrollRef.current.scrollWidth / projects.length;
+                                scrollRef.current.scrollTo({ left: idx * itemWidth, behavior: 'smooth' });
+                            }
+                        }}
+                        className={`w-2.5 h-2.5 rounded-full transition-all duration-300 ${activeIndex === idx ? 'bg-[#0077b6] w-8' : 'bg-gray-300 hover:bg-gray-400'}`}
+                        aria-label={`Go to slide ${idx + 1}`}
+                    />
+                ))}
             </div>
         </section>
     );

@@ -29,21 +29,21 @@ const CanvasHome = () => {
     setScale(1);
   };
 
-  // Define exact position for About Me section on the canvas
-  const ABOUT_POS_X = 900;
-  const ABOUT_POS_Y = window.innerHeight; // Puts it exactly one screen down
+  // Define positions for canvas sections.
+  // We use large absolute pixel distances for X to ensure sections never overlap,
+  // even if they contain wide content. The canvas will simply pan to these coordinates.
+  const ABOUT_POS_X = 1500;
+  const ABOUT_POS_Y = typeof window !== 'undefined' ? window.innerHeight * 1.1 : 800;
 
   const EXPERIENCE_POS_X = 0;
-  const EXPERIENCE_POS_Y = window.innerHeight * 2; // Two screens down
+  const EXPERIENCE_POS_Y = typeof window !== 'undefined' ? window.innerHeight * 2.2 : 1600;
 
-  // Work Section: Custom Position
-  const WORK_POS_X = -900;
-  const WORK_POS_Y = window.innerHeight * 3;
+  const WORK_POS_X = -1500;
+  const WORK_POS_Y = typeof window !== 'undefined' ? window.innerHeight * 3.3 : 2400;
   const WORK_SECTION_HEIGHT = '100vh'; // Customize viewport height for Work section
 
-  // Contact Section: Placed relative to Work or independent
-  const CONTACT_POS_X = 2500;
-  const CONTACT_POS_Y = window.innerHeight;
+  const CONTACT_POS_X = 3500;
+  const CONTACT_POS_Y = typeof window !== 'undefined' ? window.innerHeight * 1.1 : 800;
   const CONTACT_SECTION_HEIGHT = '100vh'; // Customize viewport height for Contact section
 
   React.useEffect(() => {

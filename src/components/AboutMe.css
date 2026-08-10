@@ -89,12 +89,17 @@
 
 .about-headline {
     font-family: 'Inter', sans-serif;
-    font-size: 2.25rem;
-    /* ~36px */
+    font-size: 1.75rem; /* responsive base */
     line-height: 1.2;
     font-weight: 600;
     color: #111;
     margin-bottom: 1.5rem;
+}
+
+@media (min-width: 768px) {
+    .about-headline {
+        font-size: 2.25rem; /* ~36px */
+    }
 }
 
 .about-description {

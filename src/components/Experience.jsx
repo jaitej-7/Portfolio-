@@ -42,13 +42,17 @@ const experienceData = [
 ];
 
 const Experience = () => {
+
     const [activeIndex, setActiveIndex] = useState(0);
+    const [swipeDirection, setSwipeDirection] = useState('right');
 
     const handleNext = () => {
+        setSwipeDirection('left');
         setActiveIndex((prev) => (prev + 1) % experienceData.length);
     };
 
     const handlePrev = () => {
+        setSwipeDirection('right');
         setActiveIndex((prev) => (prev - 1 + experienceData.length) % experienceData.length);
     };
 
@@ -110,6 +114,13 @@ const Experience = () => {
                 This process helps me design products that feel natural and work the way people expect.
             </p>
 
+            {/* Swipe hint for mobile users */}
+            <div className="md:hidden mb-4 flex items-center justify-center gap-3 text-[#0077b6] text-xs font-bold tracking-widest uppercase opacity-80">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse"><path d="M15 18l-6-6 6-6"/></svg>
+                <span>Swipe</span>
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="animate-pulse"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
+
             <div className="carousel-container">
                 <button onClick={handlePrev} className="nav-btn left-btn" aria-label="Previous">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -118,7 +129,7 @@ const Experience = () => {
                 </button>
 
                 <div 
-                    className="cards-stack"
+                    className="cards-stack cursor-grab active:cursor-grabbing"
                     style={{ touchAction: 'pan-y' }}
                     onPointerDown={onPointerDown}
                     onPointerMove={onPointerMove}
@@ -136,7 +147,7 @@ const Experience = () => {
                         if (relativeIndex === 0) positionClass = 'card-front';
                         else if (relativeIndex === 1) positionClass = 'card-middle';
                         else if (relativeIndex === 2) positionClass = 'card-back';
-                        else positionClass = 'card-hidden';
+                        else positionClass = `card-hidden ${swipeDirection === 'left' ? 'exit-left' : 'exit-right'}`;
 
                         return (
                             <div

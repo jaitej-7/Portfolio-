@@ -10,6 +10,33 @@ import logo from '../assets/Logo.jpg';
 import ResumePDF from '../assets/Resume.pdf';
 import './CaseStudyModal.css';
 
+const PlaceholderComingSoon = ({ text, imageSrc }) => {
+    const cleanText = text.replace(/placeholder:\s*/i, '').replace(/\[|\]/g, '').replace(/Placeholder:\s*/i, '').replace(/comingsoon_img:/i, '');
+    
+    return (
+        <div className="w-full aspect-[16/9] rounded-3xl border border-gray-100 flex flex-col items-center justify-center relative overflow-hidden bg-gray-50/50 shadow-inner group">
+            {imageSrc ? (
+                <>
+                    <img src={imageSrc} className="absolute inset-0 w-full h-full object-cover filter blur-[6px] opacity-60 group-hover:blur-[10px] transition-all duration-500 scale-105" alt="Coming soon background" />
+                    <div className="absolute inset-0 bg-white/10 backdrop-blur-[2px]"></div>
+                </>
+            ) : (
+                <>
+                    <div className="absolute top-[-20%] left-[-10%] w-[50%] h-[50%] bg-blue-400/20 rounded-full filter blur-[80px] pointer-events-none"></div>
+                    <div className="absolute bottom-[-20%] right-[-10%] w-[50%] h-[50%] bg-purple-400/20 rounded-full filter blur-[80px] pointer-events-none"></div>
+                </>
+            )}
+            
+            <div className="relative z-10 flex flex-col items-center p-8 text-center">
+                <div className="bg-white/90 backdrop-blur-md px-6 py-2 rounded-full shadow-sm border border-white/50 mb-4">
+                    <span className="text-gray-800 font-bold tracking-widest uppercase text-xs">Coming Soon</span>
+                </div>
+                {cleanText && <span className="text-gray-600 font-medium text-sm max-w-md leading-relaxed bg-white/50 backdrop-blur-sm px-4 py-1 rounded-full">{cleanText}</span>}
+            </div>
+        </div>
+    );
+};
+
 const CaseStudyPage = () => {
     const { id } = useParams();
     const [scrollProgress, setScrollProgress] = useState(0);
@@ -170,12 +197,12 @@ const CaseStudyPage = () => {
                             
                             {project.placeholders?.challenge && (
                                 <div className="w-full mt-8 shadow-sm">
-                                    {project.placeholders.challenge.startsWith('img:') ? (
-                                        <img src={project.placeholders.challenge.replace('img:', '')} alt="Challenge Visualization" className="w-full h-auto rounded-lg border border-gray-200" />
+                                    {project.placeholders.challenge.startsWith('placeholder:') ? (
+                                        <PlaceholderComingSoon text={project.placeholders.challenge} />
+                                    ) : project.placeholders.challenge.startsWith('comingsoon_img:') ? (
+                                        <PlaceholderComingSoon text={project.placeholders.challenge} imageSrc={project.placeholders.challenge.replace('comingsoon_img:', '')} />
                                     ) : (
-                                        <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                                            <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.challenge}</span>
-                                        </div>
+                                        <img src={project.placeholders.challenge.replace('img:', '')} alt="Challenge Visualization" className="w-full h-auto rounded-3xl border border-gray-200" />
                                     )}
                                 </div>
                             )}
@@ -188,12 +215,12 @@ const CaseStudyPage = () => {
                             
                             {project.placeholders?.solution && (
                                 <div className="w-full mt-8 shadow-sm">
-                                    {project.placeholders.solution.startsWith('img:') ? (
-                                        <img src={project.placeholders.solution.replace('img:', '')} alt="Solution Visualization" className="w-full h-auto rounded-lg border border-gray-200" />
+                                    {project.placeholders.solution.startsWith('placeholder:') ? (
+                                        <PlaceholderComingSoon text={project.placeholders.solution} />
+                                    ) : project.placeholders.solution.startsWith('comingsoon_img:') ? (
+                                        <PlaceholderComingSoon text={project.placeholders.solution} imageSrc={project.placeholders.solution.replace('comingsoon_img:', '')} />
                                     ) : (
-                                        <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                                            <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.solution}</span>
-                                        </div>
+                                        <img src={project.placeholders.solution.replace('img:', '')} alt="Solution Visualization" className="w-full h-auto rounded-3xl border border-gray-200" />
                                     )}
                                 </div>
                             )}
@@ -207,12 +234,12 @@ const CaseStudyPage = () => {
                                 
                                 {project.placeholders?.decisions && (
                                     <div className="w-full mt-8 shadow-sm">
-                                        {project.placeholders.decisions.startsWith('img:') ? (
-                                            <img src={project.placeholders.decisions.replace('img:', '')} alt="Decisions Visualization" className="w-full h-auto rounded-lg border border-gray-200" />
+                                        {project.placeholders.decisions.startsWith('placeholder:') ? (
+                                            <PlaceholderComingSoon text={project.placeholders.decisions} />
+                                        ) : project.placeholders.decisions.startsWith('comingsoon_img:') ? (
+                                            <PlaceholderComingSoon text={project.placeholders.decisions} imageSrc={project.placeholders.decisions.replace('comingsoon_img:', '')} />
                                         ) : (
-                                            <div className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center">
-                                                <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{project.placeholders.decisions}</span>
-                                            </div>
+                                            <img src={project.placeholders.decisions.replace('img:', '')} alt="Decisions Visualization" className="w-full h-auto rounded-3xl border border-gray-200" />
                                         )}
                                     </div>
                                 )}
@@ -223,16 +250,81 @@ const CaseStudyPage = () => {
                             <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block features-block">
                                 <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">KEY CAPABILITIES</div>
                                 <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">The Solution</h2>
-                                <div className="features-showcase grid grid-cols-1 md:grid-cols-2 gap-8">
-                                    {project.features.map((feature, index) => (
-                                        <div key={index} className="feature-item-premium bg-white p-6 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
-                                            <div className="feature-number text-blue-100 font-black text-5xl mb-4 leading-none">
-                                                {(index + 1).toString().padStart(2, '0')}
+                                <div className="features-showcase grid grid-cols-1 md:grid-cols-6 gap-6">
+                                    {project.features.map((feature, index) => {
+                                        const total = project.features.length;
+                                        let layoutClass = "md:col-span-3";
+                                        
+                                        if (total === 6) {
+                                            layoutClass = "md:col-span-2";
+                                        } else if (total === 5) {
+                                            const pattern = ["md:col-span-2", "md:col-span-2", "md:col-span-2", "md:col-span-3", "md:col-span-3"];
+                                            layoutClass = pattern[index];
+                                        } else if (total === 3) {
+                                            layoutClass = "md:col-span-2";
+                                        }
+                                        
+                                        return (
+                                            <div key={index} className={`feature-item-premium bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group ${layoutClass}`}>
+                                                <div className="absolute top-0 right-0 -mt-6 -mr-6 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-full opacity-60 group-hover:scale-150 transition-transform duration-700 ease-out pointer-events-none"></div>
+                                                
+                                                <div className="relative z-10 h-full flex flex-col justify-between">
+                                                    <div className="absolute top-[-10px] right-[-10px] text-blue-50/50 font-black text-8xl leading-none z-[-1] select-none pointer-events-none">
+                                                        {(index + 1).toString().padStart(2, '0')}
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-3 pr-8 leading-tight">{feature.title}</h3>
+                                                        <p className="text-gray-600 leading-relaxed text-sm md:text-base">{feature.description}</p>
+                                                    </div>
+                                                </div>
                                             </div>
-                                            <div className="feature-info">
-                                                <h3 className="text-xl font-bold text-gray-900 mb-2">{feature.title}</h3>
-                                                <p className="text-gray-600 leading-relaxed">{feature.description}</p>
+                                        );
+                                    })}
+                                </div>
+                            </motion.section>
+                        )}
+
+                        {project.useCases && project.useCases.length > 0 && (
+                            <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block">
+                                <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">DEEP DIVE</div>
+                                <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">Complex Context, Simple Solutions</h2>
+                                
+                                <div className="space-y-12">
+                                    {project.useCases.map((useCase, index) => (
+                                        <div key={index} className="use-case-card bg-white p-8 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden">
+                                            {/* Decorative indicator */}
+                                            <div className="absolute left-0 top-0 bottom-0 w-2 bg-blue-500"></div>
+                                            
+                                            <h3 className="text-2xl font-bold text-gray-900 mb-6">{useCase.title}</h3>
+                                            
+                                            <div className="grid md:grid-cols-2 gap-8">
+                                                <div className="context-box bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                                                    <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                                        <span className="w-2 h-2 rounded-full bg-red-400"></span>
+                                                        Complex Context
+                                                    </h4>
+                                                    <p className="text-gray-700 leading-relaxed">{useCase.complexContext}</p>
+                                                </div>
+                                                
+                                                <div className="solution-box bg-blue-50/50 p-6 rounded-2xl border border-blue-100/50">
+                                                    <h4 className="text-sm font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center gap-2">
+                                                        <span className="w-2 h-2 rounded-full bg-green-400"></span>
+                                                        Simple Solution
+                                                    </h4>
+                                                    <p className="text-gray-700 leading-relaxed">{useCase.simpleSolution}</p>
+                                                </div>
                                             </div>
+                                            
+                                            {useCase.image && (
+                                                <div className="mt-8">
+                                                    {useCase.image.startsWith('placeholder:') ? (
+                                                        <PlaceholderComingSoon text={useCase.image} />
+                                                    ) : (
+                                                        <img src={useCase.image} alt={useCase.title} className="w-full h-auto rounded-3xl border border-gray-200 shadow-sm" />
+                                                    )}
+                                                </div>
+                                            )}
                                         </div>
                                     ))}
                                 </div>
@@ -247,8 +339,8 @@ const CaseStudyPage = () => {
                                     {project.showcase.map((imgOrPlaceholder, index) => {
                                         if (typeof imgOrPlaceholder === 'string' && imgOrPlaceholder.startsWith('placeholder:')) {
                                             return (
-                                                <div key={index} className="w-full aspect-[16/9] bg-gray-50 rounded-lg border-2 border-dashed border-gray-300 flex items-center justify-center shadow-sm">
-                                                    <span className="text-gray-400 font-bold tracking-wider uppercase text-sm px-6 text-center">{imgOrPlaceholder.replace('placeholder:', '').trim()}</span>
+                                                <div key={index} className="w-full">
+                                                    <PlaceholderComingSoon text={imgOrPlaceholder} />
                                                 </div>
                                             );
                                         }
