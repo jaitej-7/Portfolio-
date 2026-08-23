@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, Calendar, User, Target, ChevronLeft } from 'lucide-react';
+import { ArrowLeft, Calendar, User, Target, ChevronLeft, Lightbulb, X } from 'lucide-react';
 import { projects } from '../data/projects';
 import { useSEO } from '../hooks/useSEO';
 import { ReactLenis } from 'lenis/react';
@@ -9,12 +9,13 @@ import BottomNavBar from './BottomNavBar';
 import logo from '../assets/Logo.jpg';
 import ResumePDF from '../assets/Resume.pdf';
 import './CaseStudyModal.css';
+import BeforeAfterSlider from './BeforeAfterSlider';
 
 const PlaceholderComingSoon = ({ text, imageSrc }) => {
     const cleanText = text.replace(/placeholder:\s*/i, '').replace(/\[|\]/g, '').replace(/Placeholder:\s*/i, '').replace(/comingsoon_img:/i, '');
     
     return (
-        <div className="w-full aspect-[16/9] rounded-3xl border border-gray-100 flex flex-col items-center justify-center relative overflow-hidden bg-gray-50/50 shadow-inner group">
+        <div className="w-full aspect-[16/9] rounded-lg border border-gray-100 flex flex-col items-center justify-center relative overflow-hidden bg-gray-50/50 shadow-inner group">
             {imageSrc ? (
                 <>
                     <img src={imageSrc} className="absolute inset-0 w-full h-full object-cover filter blur-[6px] opacity-60 group-hover:blur-[10px] transition-all duration-500 scale-105" alt="Coming soon background" />
@@ -42,6 +43,8 @@ const CaseStudyPage = () => {
     const [scrollProgress, setScrollProgress] = useState(0);
     const [isNavVisible, setIsNavVisible] = useState(true);
     const lastScrollY = React.useRef(0);
+    const [activeLawIndex, setActiveLawIndex] = useState(0);
+    const [zoomedImage, setZoomedImage] = useState(null);
 
     const project = projects.find(p => p.id === id);
 
@@ -98,7 +101,7 @@ const CaseStudyPage = () => {
 
     return (
         <ReactLenis root options={{ lerp: 0.08, smoothWheel: true }}>
-        <div className="min-h-screen bg-white w-full overflow-x-hidden relative pb-32 md:pb-24">
+        <div className="min-h-screen bg-white w-full overflow-x-clip relative pb-32 md:pb-24">
             {/* Fixed Dotted Background */}
             <div 
                 className="fixed inset-0 pointer-events-none z-0"
@@ -150,7 +153,7 @@ const CaseStudyPage = () => {
                                 <span className="text-gray-300">/</span>
                                 <span className="text-blue-600">{project.title}</span>
                             </div>
-                            <h1 className="hero-title text-[32px] font-black mb-2">{project.title}</h1>
+                            <h1 className="hero-title text-[28px] md:text-[42px] font-black mb-2">{project.title}</h1>
                             <p className="hero-tagline text-lg md:text-xl text-gray-600 mb-6 max-w-2xl mx-auto text-center">{project.tagline}</p>
                         </div>
                         <motion.div 
@@ -163,39 +166,44 @@ const CaseStudyPage = () => {
                     {/* Meta Dashboard */}
                     <motion.div 
                         initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} 
-                        className="meta-dashboard mt-12 grid grid-cols-1 md:grid-cols-3 gap-6"
+                        className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-16 relative z-10"
                     >
-                        <div className="meta-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-5 h-full">
-                            <div className="meta-icon bg-blue-50/50 text-blue-600 p-4 rounded-xl flex-shrink-0">
-                                <User size={24} />
+                        {/* Role Card */}
+                        <div className="meta-card bg-white/80 backdrop-blur-md p-5 rounded-md border border-gray-200 shadow-sm flex items-center gap-4">
+                            <div className="meta-icon bg-blue-50/50 p-2.5 rounded-md text-blue-600 shrink-0">
+                                <User size={18} />
                             </div>
-                            <div className="meta-text flex-1">
-                                <label className="text-[11px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Role</label>
-                                <p className="text-gray-900 font-bold text-sm leading-snug">{project.role}</p>
-                            </div>
-                        </div>
-                        <div className="meta-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-5 h-full">
-                            <div className="meta-icon bg-blue-50/50 text-blue-600 p-4 rounded-xl flex-shrink-0">
-                                <Calendar size={24} />
-                            </div>
-                            <div className="meta-text flex-1">
-                                <label className="text-[11px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Timeline</label>
-                                <p className="text-gray-900 font-bold text-sm leading-snug">{project.timeline}</p>
+                            <div>
+                                <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Role</span>
+                                <p className="text-gray-900 font-semibold text-sm leading-snug">{project.role}</p>
                             </div>
                         </div>
-                        <div className="meta-card bg-white p-6 rounded-2xl border border-gray-100 shadow-sm flex items-center gap-5 h-full">
-                            <div className="meta-icon bg-blue-50/50 text-blue-600 p-4 rounded-xl flex-shrink-0">
-                                <Target size={24} />
+
+                        {/* Timeline Card */}
+                        <div className="meta-card bg-white/80 backdrop-blur-md p-5 rounded-md border border-gray-200 shadow-sm flex items-center gap-4">
+                            <div className="meta-icon bg-blue-50/50 p-2.5 rounded-md text-blue-600 shrink-0">
+                                <Calendar size={18} />
                             </div>
-                            <div className="meta-text flex-1">
-                                <label className="text-[11px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Objective</label>
-                                <p className="text-gray-900 font-bold text-sm leading-snug">{project.goal}</p>
+                            <div>
+                                <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Timeline</span>
+                                <p className="text-gray-900 font-semibold text-sm leading-snug">{project.timeline}</p>
+                            </div>
+                        </div>
+
+                        {/* Objective Card (Full Width Bottom) */}
+                        <div className="meta-card md:col-span-2 bg-white/80 backdrop-blur-md p-5 rounded-md border border-gray-200 shadow-sm flex items-center gap-4">
+                            <div className="meta-icon bg-blue-50/50 p-2.5 rounded-md text-blue-600 shrink-0">
+                                <Target size={18} />
+                            </div>
+                            <div>
+                                <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold block mb-1">Objective</span>
+                                <p className="text-gray-900 font-semibold text-sm leading-snug">{project.goal}</p>
                             </div>
                         </div>
                     </motion.div>
 
                     {/* Body Sections */}
-                    <div className="body-grid-premium mt-16 space-y-16">
+                    <div className="body-grid-premium mt-16">
                         <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block">
                             <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">THE CHALLENGE</div>
                             <h2 className="block-title text-3xl font-bold mb-6 text-gray-900">Context & Problem</h2>
@@ -208,7 +216,12 @@ const CaseStudyPage = () => {
                                     ) : project.placeholders.challenge.startsWith('comingsoon_img:') ? (
                                         <PlaceholderComingSoon text={project.placeholders.challenge} imageSrc={project.placeholders.challenge.replace('comingsoon_img:', '')} />
                                     ) : (
-                                        <img src={project.placeholders.challenge.replace('img:', '')} alt="Challenge Visualization" className="w-full h-auto rounded-3xl border border-gray-200" />
+                                        <img 
+                                            src={project.placeholders.challenge.replace('img:', '')} 
+                                            alt="Challenge Visualization" 
+                                            className="w-full h-auto rounded-lg border border-gray-200 cursor-zoom-in hover:opacity-95 transition-opacity" 
+                                            onClick={() => setZoomedImage(project.placeholders.challenge.replace('img:', ''))}
+                                        />
                                     )}
                                 </div>
                             )}
@@ -226,7 +239,12 @@ const CaseStudyPage = () => {
                                     ) : project.placeholders.solution.startsWith('comingsoon_img:') ? (
                                         <PlaceholderComingSoon text={project.placeholders.solution} imageSrc={project.placeholders.solution.replace('comingsoon_img:', '')} />
                                     ) : (
-                                        <img src={project.placeholders.solution.replace('img:', '')} alt="Solution Visualization" className="w-full h-auto rounded-3xl border border-gray-200" />
+                                        <img 
+                                            src={project.placeholders.solution.replace('img:', '')} 
+                                            alt="Solution Visualization" 
+                                            className="w-full h-auto rounded-lg border border-gray-200 cursor-zoom-in hover:opacity-95 transition-opacity" 
+                                            onClick={() => setZoomedImage(project.placeholders.solution.replace('img:', ''))}
+                                        />
                                     )}
                                 </div>
                             )}
@@ -245,17 +263,91 @@ const CaseStudyPage = () => {
                                         ) : project.placeholders.decisions.startsWith('comingsoon_img:') ? (
                                             <PlaceholderComingSoon text={project.placeholders.decisions} imageSrc={project.placeholders.decisions.replace('comingsoon_img:', '')} />
                                         ) : (
-                                            <img src={project.placeholders.decisions.replace('img:', '')} alt="Decisions Visualization" className="w-full h-auto rounded-3xl border border-gray-200" />
+                                            <img 
+                                                src={project.placeholders.decisions.replace('img:', '')} 
+                                                alt="Decisions Visualization" 
+                                                className="w-full h-auto rounded-lg border border-gray-200 cursor-zoom-in hover:opacity-95 transition-opacity" 
+                                                onClick={() => setZoomedImage(project.placeholders.decisions.replace('img:', ''))}
+                                            />
                                         )}
                                     </div>
                                 )}
                             </motion.section>
                         )}
 
+                        {project.uxLaws && project.uxLaws.length > 0 && (
+                            <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block">
+                                <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">COGNITIVE AUDIT</div>
+                                <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">Friction Audits & UX Solutions</h2>
+                                
+                                <div className="flex flex-col border-t border-gray-200 mt-12">
+                                    {project.uxLaws.map((ux, index) => (
+                                        <div key={index} className="flex flex-col lg:flex-row py-12 border-b border-gray-200 gap-8 lg:gap-16">
+                                            
+                                            {/* Left Column: The Problem Encountered */}
+                                            <div className="w-full lg:w-1/2 lg:sticky lg:top-28 self-start py-2 lg:py-4">
+                                                <span className="text-[10px] uppercase tracking-widest text-gray-400 font-bold mb-2 block">Case 0{index + 1} — Friction Point</span>
+                                                <h3 className="text-2xl font-bold text-gray-900 mb-4">{ux.context}</h3>
+                                                <p className="text-gray-700 text-sm leading-relaxed">{ux.problem}</p>
+                                            </div>
+
+                                            {/* Right Column: The Solution, Approach & Metric */}
+                                            <div className="w-full lg:w-1/2 flex flex-col gap-6">
+                                                <div>
+                                                    <span className="text-[10px] uppercase tracking-widest text-green-600 font-bold block mb-3">UX Solution & Applied Approach</span>
+                                                    <div className="mb-3">
+                                                        <span className="inline-block bg-blue-50 text-blue-700 text-[9px] font-bold uppercase tracking-widest px-2.5 py-1 rounded border border-blue-100">
+                                                            Framework: {ux.law}
+                                                        </span>
+                                                    </div>
+                                                    <p className="text-gray-700 text-sm leading-relaxed">{ux.solution}</p>
+                                                </div>
+
+                                                {/* Cognitive Load Reduction Highlight */}
+                                                <div className="bg-blue-50/40 p-4 rounded-md border border-blue-100 flex items-center gap-3">
+                                                    <div className="w-2 h-2 rounded-full bg-blue-500 shrink-0"></div>
+                                                    <div>
+                                                        <span className="text-[9px] uppercase tracking-widest text-blue-500 font-bold block mb-0.5">Cognitive Load Reduction</span>
+                                                        <p className="text-blue-900 text-sm font-semibold">{ux.reduction}</p>
+                                                    </div>
+                                                </div>
+
+                                                {/* Visual Proof / Before & After Slider */}
+                                                {ux.beforeImage && ux.afterImage ? (
+                                                    <div className="w-full mt-2 bg-gray-50 p-2 rounded-lg border border-gray-200">
+                                                        <BeforeAfterSlider 
+                                                            beforeImage={ux.beforeImage} 
+                                                            afterImage={ux.afterImage} 
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    ux.image && (
+                                                        <div className="w-full mt-2 bg-gray-50 p-2 rounded-lg border border-gray-200">
+                                                            {ux.image.startsWith('placeholder:') ? (
+                                                                <PlaceholderComingSoon text={ux.image} />
+                                                            ) : (
+                                                                <img 
+                                                                    src={ux.image} 
+                                                                    alt={ux.context} 
+                                                                    className="w-full rounded-md shadow-sm border border-gray-200 cursor-zoom-in hover:opacity-95 transition-opacity" 
+                                                                    onClick={() => setZoomedImage(ux.image)}
+                                                                />
+                                                            )}
+                                                        </div>
+                                                    )
+                                                )}
+                                            </div>
+
+                                        </div>
+                                    ))}
+                                </div>
+                            </motion.section>
+                        )}
+
                         {project.features && (
                             <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block features-block">
-                                <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">KEY CAPABILITIES</div>
-                                <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">The Solution</h2>
+                                <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">ADDITIONAL DESIGN SOLUTIONS</div>
+                                <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">Beyond the Core Screens</h2>
                                 <div className="features-showcase grid grid-cols-1 md:grid-cols-6 gap-6">
                                     {project.features.map((feature, index) => {
                                         const total = project.features.length;
@@ -271,7 +363,7 @@ const CaseStudyPage = () => {
                                         }
                                         
                                         return (
-                                            <div key={index} className={`feature-item-premium bg-white p-8 rounded-3xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group ${layoutClass}`}>
+                                            <div key={index} className={`feature-item-premium bg-white p-5 md:p-8 rounded-lg border border-gray-100 shadow-sm hover:shadow-md transition-shadow relative overflow-hidden group ${layoutClass}`}>
                                                 <div className="absolute top-0 right-0 -mt-6 -mr-6 w-32 h-32 bg-gradient-to-br from-blue-50 to-transparent rounded-full opacity-60 group-hover:scale-150 transition-transform duration-700 ease-out pointer-events-none"></div>
                                                 
                                                 <div className="relative z-10 h-full flex flex-col justify-between">
@@ -294,31 +386,31 @@ const CaseStudyPage = () => {
                         {project.useCases && project.useCases.length > 0 && (
                             <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block">
                                 <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">DEEP DIVE</div>
-                                <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">Complex Context, Simple Solutions</h2>
+                                <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">Solving the Hardest Problems First</h2>
                                 
                                 <div className="space-y-12">
                                     {project.useCases.map((useCase, index) => (
-                                        <div key={index} className="use-case-card bg-white p-8 rounded-3xl border border-gray-100 shadow-sm relative overflow-hidden">
+                                        <div key={index} className="use-case-card bg-white p-5 md:p-8 rounded-lg border border-gray-100 shadow-sm relative overflow-hidden">
                                             {/* Decorative indicator */}
                                             <div className="absolute left-0 top-0 bottom-0 w-2 bg-blue-500"></div>
                                             
-                                            <h3 className="text-2xl font-bold text-gray-900 mb-6">{useCase.title}</h3>
+                                            <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-5 pl-4">{useCase.title}</h3>
                                             
-                                            <div className="grid md:grid-cols-2 gap-8">
-                                                <div className="context-box bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                                                <div className="context-box bg-gray-50 p-4 md:p-6 rounded-md border border-gray-100">
                                                     <h4 className="text-sm font-bold text-gray-500 uppercase tracking-widest mb-3 flex items-center gap-2">
                                                         <span className="w-2 h-2 rounded-full bg-red-400"></span>
                                                         Complex Context
                                                     </h4>
-                                                    <p className="text-gray-700 leading-relaxed">{useCase.complexContext}</p>
+                                                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">{useCase.complexContext}</p>
                                                 </div>
                                                 
-                                                <div className="solution-box bg-blue-50/50 p-6 rounded-2xl border border-blue-100/50">
+                                                <div className="solution-box bg-blue-50/50 p-4 md:p-6 rounded-md border border-blue-100/50">
                                                     <h4 className="text-sm font-bold text-blue-600 uppercase tracking-widest mb-3 flex items-center gap-2">
                                                         <span className="w-2 h-2 rounded-full bg-green-400"></span>
                                                         Simple Solution
                                                     </h4>
-                                                    <p className="text-gray-700 leading-relaxed">{useCase.simpleSolution}</p>
+                                                    <p className="text-gray-700 leading-relaxed text-sm md:text-base">{useCase.simpleSolution}</p>
                                                 </div>
                                             </div>
                                             
@@ -327,7 +419,12 @@ const CaseStudyPage = () => {
                                                     {useCase.image.startsWith('placeholder:') ? (
                                                         <PlaceholderComingSoon text={useCase.image} />
                                                     ) : (
-                                                        <img src={useCase.image} alt={useCase.title} className="w-full h-auto rounded-3xl border border-gray-200 shadow-sm" />
+                                                        <img 
+                                                            src={useCase.image} 
+                                                            alt={useCase.title} 
+                                                            className="w-full h-auto rounded-lg border border-gray-200 shadow-sm cursor-zoom-in hover:opacity-95 transition-opacity" 
+                                                            onClick={() => setZoomedImage(useCase.image)}
+                                                        />
                                                     )}
                                                 </div>
                                             )}
@@ -351,7 +448,7 @@ const CaseStudyPage = () => {
                                             );
                                         }
                                         return (
-                                            <div key={index} className="showcase-image rounded-lg overflow-hidden shadow-sm border border-gray-200">
+                                            <div key={index} className="showcase-image rounded-lg overflow-hidden shadow-sm border border-gray-200 cursor-zoom-in hover:opacity-95 transition-opacity" onClick={() => setZoomedImage(imgOrPlaceholder)}>
                                                 <img src={imgOrPlaceholder} alt={`Showcase ${index + 1}`} className="w-full h-auto object-cover" />
                                             </div>
                                         );
@@ -361,18 +458,17 @@ const CaseStudyPage = () => {
                         )}
 
                         {project.impact && (
-                            <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block impact-block bg-gray-50 border border-gray-100 text-gray-900 p-8 md:p-12 rounded-lg mx-[-1.5rem] md:mx-0">
+                            <motion.section initial="hidden" whileInView="visible" viewport={{ once: true, margin: "-50px" }} variants={itemVariants} className="body-block impact-block bg-gray-50 border border-gray-100 text-gray-900 p-6 md:p-12 rounded-lg">
                                 <div className="block-label text-blue-500 text-sm font-bold tracking-widest mb-3">THE OUTCOME</div>
                                 <h2 className="block-title text-3xl font-bold mb-8 text-gray-900">Impact & Results</h2>
-                                <div className="impact-stats-grid grid grid-cols-4 md:grid-cols-2 gap-6">
+                                <div className="grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
                                     {project.impact.map((item, index) => {
                                         const firstWord = item.split(' ')[0];
                                         const rest = item.split(' ').slice(1).join(' ');
-                                        const isLong = firstWord.length > 5;
                                         return (
-                                        <div key={index} className="stat-card">
-                                            <div className={`stat-value font-black text-blue-500 mb-2 break-words ${isLong ? 'text-3xl md:text-3xl' : 'text-4xl md:text-5xl'}`}>{firstWord}</div>
-                                            <div className="stat-desc text-gray-600 font-medium">{rest}</div>
+                                        <div key={index} className="bg-white p-4 md:p-6 rounded-md border border-gray-200 shadow-sm flex flex-col justify-center">
+                                            <div className="font-extrabold text-blue-600 mb-2 text-xl md:text-3xl">{firstWord}</div>
+                                            <div className="text-gray-600 text-xs md:text-sm font-semibold leading-relaxed">{rest}</div>
                                         </div>
                                         );
                                     })}
@@ -394,7 +490,7 @@ const CaseStudyPage = () => {
                         <div className="footer-cta-card">
                             <h3>Interested in working together?</h3>
                             <p>Let's build something great.</p>
-                            <a href="mailto:hello@example.com" className="primary-cta-btn">
+                            <a href="mailto:jaitej@gmail.com" className="primary-cta-btn">
                                 Get in touch
                             </a>
                         </div>
@@ -404,6 +500,34 @@ const CaseStudyPage = () => {
 
             {/* Bottom Nav Bar from Main Page */}
             <BottomNavBar isCaseStudy={true} />
+
+            {/* Global Lightbox / Image Zoom Preview */}
+            <AnimatePresence>
+                {zoomedImage && (
+                    <motion.div 
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        exit={{ opacity: 0 }}
+                        onClick={() => setZoomedImage(null)}
+                        className="fixed inset-0 z-[999] bg-black/95 backdrop-blur-md flex items-center justify-center p-4 cursor-zoom-out"
+                    >
+                        <motion.img 
+                            initial={{ scale: 0.95 }}
+                            animate={{ scale: 1 }}
+                            exit={{ scale: 0.95 }}
+                            src={zoomedImage} 
+                            alt="Zoomed Preview" 
+                            className="max-w-full max-h-[90vh] rounded-md shadow-2xl border border-white/10 object-contain pointer-events-auto"
+                        />
+                        <button 
+                            className="absolute top-6 right-6 text-white/70 hover:text-white bg-white/10 hover:bg-white/20 p-2.5 rounded-full transition-colors cursor-pointer pointer-events-auto"
+                            onClick={() => setZoomedImage(null)}
+                        >
+                            <X size={20} />
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
         </ReactLenis>
     );

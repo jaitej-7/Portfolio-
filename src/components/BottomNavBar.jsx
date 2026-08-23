@@ -58,7 +58,7 @@ const BottomNavBar = ({ onNavigate, onZoomIn, onZoomOut, onZoomReset, currentSca
                                     relative group flex items-center justify-center transition-all duration-150
                                     flex-none w-10 h-10 rounded-lg
                                     ${isActive 
-                                        ? 'bg-[#18A0FB] text-white shadow-sm' 
+                                        ? 'bg-[#0077b6] text-white shadow-sm' 
                                         : 'hover:bg-gray-100 text-gray-700'
                                     }
                                 `}
